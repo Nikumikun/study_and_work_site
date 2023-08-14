@@ -7,60 +7,49 @@ const Feedback = sequelize.define('feedback',{
     Viber: {type: DataTypes.STRING, unique: true, allowNull: true},
     OK: {type: DataTypes.STRING, unique: true, allowNull: true},
     Telegram: {type: DataTypes.STRING, unique: true, allowNull: true}
-})
+}, {createdAt: false, updatedAt: false})
 const UserRole = sequelize.define('userrole',{
     UserRoleId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     Name: {type: DataTypes.STRING, unique: true, allowNull: false},
     Description: {type: DataTypes.STRING, allowNull: true}
-})
+}, {createdAt: false, updatedAt: false})
 const User = sequelize.define('user',{
     UserId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     UserName: {type: DataTypes.STRING, allowNull: false},
     Email: {type: DataTypes.STRING, unique: true, allowNull: false},
     Password: {type: DataTypes.STRING, allowNull: false}
-})
+}, {createdAt: false, updatedAt: false})
 const Decision = sequelize.define('decision',{
     DecisionId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    Description: {type: DataTypes.STRING, allowNull: false},
+    Description: {type: DataTypes.STRING, allowNull: false, default: "Пусто"},
     File: {type: DataTypes.STRING, allowNull: true}
-})
+}, {createdAt: false, updatedAt: false})
 const TaskRole = sequelize.define('taskrole',{
     TaskRoleId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     Name: {type: DataTypes.STRING, unique: true, allowNull: false},
     Description: {type: DataTypes.STRING, allowNull: true}
-})
+}, {createdAt: false, updatedAt: false})
 const Colour = sequelize.define('colour',{
     ColourId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    Name: {type: DataTypes.STRING, unique: true, allowNull: false},
-    Red: {type: DataTypes.INTEGER, allowNull: false},
-    Green: {type: DataTypes.INTEGER, allowNull: false},
-    Blue: {type: DataTypes.INTEGER, allowNull: false}
-})
+    Name: {type: DataTypes.STRING, unique: true, allowNull: false}
+}, {createdAt: false, updatedAt: false})
 const TaskStatus = sequelize.define('taskstatus',{
     TaskStatusId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     Name: {type: DataTypes.STRING, unique: true, allowNull: false},
     Description: {type: DataTypes.STRING, allowNull: true}
-})
+}, {createdAt: false, updatedAt: false})
 const Task = sequelize.define('task',{
     TaskId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     Name: {type: DataTypes.STRING, allowNull: false},
     Price: {type: DataTypes.INTEGER, allowNull: true},
     Description: {type: DataTypes.STRING, allowNull: true}
-})
-const UserCreateTask = sequelize.define('usercreatetask',{
-    UserCreateTaskId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-})
-const UserTakeTask = sequelize.define('usertaketask',{
-    UserTakeTaskId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-})
+}, {createdAt: false, updatedAt: false})
+
 Feedback.hasMany(User)
 User.belongsTo(Feedback)
 
 UserRole.hasMany(User)
 User.belongsTo(UserRole)
-
-User.hasMany(Task)
-Task.belongsTo(User)
 
 Decision.hasMany(Task)
 Task.belongsTo(Decision)
@@ -74,11 +63,11 @@ Task.belongsTo(TaskStatus)
 TaskRole.hasMany(Task)
 Task.belongsTo(TaskRole)
 
-User.belongsToMany(Task,{through: UserCreateTask})
-Task.belongsToMany(User,{through:UserCreateTask})
+User.hasMany(Task, {foreignKey: 'UserIdCreateTask'})
+Task.belongsTo(User,{as: 'UserCreateTask', foreignKey: 'UserIdCreateTask'})
 
-User.belongsToMany(Task,{through: UserTakeTask})
-Task.belongsToMany(User,{through:UserTakeTask})
+User.hasMany(Task, {foreignKey: 'UserIdTakeTask'})
+Task.belongsTo(User,{as: 'UserTakeTask', foreignKey: 'UserIdTakeTask'})
 
 module.exports = {
     Feedback,
@@ -88,7 +77,5 @@ module.exports = {
     TaskRole,
     Colour,
     TaskStatus,
-    Task,
-    UserCreateTask,
-    UserTakeTask
+    Task
 }
