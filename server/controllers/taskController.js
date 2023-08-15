@@ -3,8 +3,9 @@ const ApiError = require('../error/ApiError')
 class TaskController {
     async create(req,res,next){
         try {
-            let {Name,Price,Description,decisionDecisionId,taskstatusTaskStatusId,taskroleTaskRoleId, info} = req.body
-            const task = await Task.create({Name,Price,Description,decisionDecisionId,taskstatusTaskStatusId,taskroleTaskRoleId})
+            let {Name,Price,Description,decisionDecisionId,taskstatusTaskStatusId,taskroleTaskRoleId, UserIdCreateTask} = req.body
+            const task = await Task.create({Name,Price,Description,decisionDecisionId,
+                taskstatusTaskStatusId,taskroleTaskRoleId, UserIdCreateTask})
             return res.json(task)
         } catch (e) {
             next(ApiError.badRequest(e.message))
@@ -58,6 +59,18 @@ class TaskController {
             },
         )
         return res.json(task)
+    }
+    async delete(req, res, next){
+        try {
+            const {TaskId} = req.query
+            const deleteTask = await Task.destroy({
+                where: { TaskId }
+            })
+            return res.json({message: 'Запись была удалена'})
+
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
     }
 }
 module.exports = new TaskController()

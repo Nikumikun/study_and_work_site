@@ -1,7 +1,9 @@
 const Router = require('express')
 const router = new Router()
 const taskstatusController = require('../controllers/taskstatusController')
-router.post('/', taskstatusController.create)
+const checkRole = require('../middleware/checkRoleMiddleware')
+router.post('/',checkRole(2), taskstatusController.create)
 router.get('/', taskstatusController.getAll)
-router.delete('/',)
+router.patch('/', checkRole(2), taskstatusController.update)
+router.delete('/', checkRole(2), taskstatusController.delete)
 module.exports = router
