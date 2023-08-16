@@ -1,0 +1,7 @@
+export const ADMIN_ROUTE = '/admin'
+export const LOGIN_ROUTE = '/login'
+export const REGISTRATION_ROUTE = '/registration'
+export const TASKLIST_ROUTE = '/tasklist'
+export const TASKPAGE_ROUTE = '/task'
+export const USERPROFILE_ROUTE = '/user'
+export const DECISION_ROUTE = '/decision'
