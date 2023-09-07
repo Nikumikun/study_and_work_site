@@ -13,6 +13,11 @@ const UserRole = sequelize.define('userrole',{
     Name: {type: DataTypes.STRING, unique: true, allowNull: false},
     Description: {type: DataTypes.STRING, allowNull: true}
 }, {createdAt: false, updatedAt: false})
+const UserCategory = sequelize.define('usercategory',{
+    UserCategoryId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    Name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    Description: {type: DataTypes.STRING, allowNull: true}
+}, {createdAt: false, updatedAt: false})
 const User = sequelize.define('user',{
     UserId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     UserName: {type: DataTypes.STRING, allowNull: false},
@@ -38,6 +43,11 @@ const TaskStatus = sequelize.define('taskstatus',{
     Name: {type: DataTypes.STRING, unique: true, allowNull: false},
     Description: {type: DataTypes.STRING, allowNull: true}
 }, {createdAt: false, updatedAt: false})
+const TaskCategory = sequelize.define('taskcategory',{
+    TaskCategoryId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    Name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    Description: {type: DataTypes.STRING, allowNull: true}
+}, {createdAt: false, updatedAt: false})
 const Task = sequelize.define('task',{
     TaskId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     Name: {type: DataTypes.STRING, allowNull: false},
@@ -45,11 +55,15 @@ const Task = sequelize.define('task',{
     Description: {type: DataTypes.STRING, allowNull: true}
 }, {createdAt: false, updatedAt: false})
 
+
 Feedback.hasMany(User)
 User.belongsTo(Feedback)
 
 UserRole.hasMany(User)
 User.belongsTo(UserRole)
+
+UserCategory.hasMany(User)
+User.belongsTo(UserCategory)
 
 Decision.hasMany(Task)
 Task.belongsTo(Decision)
@@ -63,6 +77,9 @@ Task.belongsTo(TaskStatus)
 TaskRole.hasMany(Task)
 Task.belongsTo(TaskRole)
 
+TaskCategory.hasMany(Task)
+Task.belongsTo(TaskCategory)
+
 User.hasMany(Task, {foreignKey: 'UserIdCreateTask'})
 Task.belongsTo(User,{as: 'UserCreateTask', foreignKey: 'UserIdCreateTask'})
 
@@ -72,10 +89,12 @@ Task.belongsTo(User,{as: 'UserTakeTask', foreignKey: 'UserIdTakeTask'})
 module.exports = {
     Feedback,
     UserRole,
+    UserCategory,
     User,
     Decision,
     TaskRole,
     Colour,
     TaskStatus,
+    TaskCategory,
     Task
 }
