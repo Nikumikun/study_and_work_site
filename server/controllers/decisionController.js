@@ -1,6 +1,6 @@
 const uuid = require('uuid')
 const path = require('path')
-const {Decision, Colour} = require('../models/models')
+const {Decision} = require('../models/models')
 const ApiError = require('../error/ApiError')
 class decisionController {
     async create(req,res, next){
@@ -16,9 +16,17 @@ class decisionController {
         }
 
     }
-    async getAll(req,res){
-        const decisions = await Decision.findAll()
-        return res.json(decisions)
+    async getAll(req,res,next){
+        try {
+            const {DecisionId} = req.query
+            const decision = await Decision.findAll({
+                where: { DecisionId }
+            })
+            return res.json(decision)
+
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
     }
     async delete(req, res, next){
         try {

@@ -1,41 +1,76 @@
-const {User,Feedback} = require('../models/models')
+const {User,Feedback, UserRole} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const generateJwt = (UserId,Email,userroleUserRole) => {
-    return jwt.sign({UserId, Email, userroleUserRole},
+const {DATEONLY, DataTypes, DATE, NOW} = require("sequelize");
+const generateJwt = (UserId,UserName,Birthday,Email,feedbackFeedbackId,userroleUserRoleId,usercategoryUserCategoryId) => {
+    return jwt.sign({UserId,UserName,Birthday,Email,feedbackFeedbackId,userroleUserRoleId,usercategoryUserCategoryId},
         process.env.SECRET_KEY, {expiresIn: '24h'})
 }
 class UserController {
-    async registration(req,res, next){
-        const {UserName, Email, Password, feedbackFeedbackId, userroleUserRoleId} = req.body
-        if (!Email || !Password){
-            return next(ApiError.badRequest('Некоррекстный email или password'))
+    async registration(req,res,next){
+        try {
+            const {UserName, Birthday, Email, Password} = req.body
+            const dateNow = new Date(Date.now())
+            const dateIf = new Date(1950,1,1)
+            const birthdayIf = new Date(Date.parse(Birthday))
+            if (birthdayIf > dateIf && birthdayIf < dateNow) {
+                if (!Email || !Password){
+                    return next(ApiError.badRequest('Некорректный email или password'))
+                } else {
+                    const candidate = await User.findAll({where: {Email}})
+                    if (candidate === null) {
+                        return next(ApiError.badRequest('Пользователь уже существует с таким email'))
+                    } else {
+                        const hashPassword = await bcrypt.hash(Password,5)
+                        const findRoleAdmin = await UserRole.findOrCreate({
+                            where:{
+                                Name: "Админ"
+                            }, defaults: {Description: "Пользователь с правами админа"}})
+                        const findRoleUser = await UserRole.findOrCreate({
+                            where:{
+                                Name: "Пользователь"
+                            }, defaults: {Description: "Пользователь без админ-прав"}})
+                        const findRoleWorker = await UserRole.findOrCreate({
+                            where:{
+                                Name: "Сотрудник",
+                            }, defaults: {Description: "Пользователь с ограниченными правами админа"}})
+                        const feedback = await Feedback.create()
+                        const user = await User.create({UserName,Birthday,Email,Password: hashPassword,
+                            feedbackFeedbackId: feedback.FeedbackId, userroleUserRoleId:findRoleUser[0].dataValues.UserRoleId})
+                        const token = generateJwt(user.UserId,user.UserName,user.Birthday,user.Email,user.feedbackFeedbackId,
+                            user.userroleUserRoleId,user.usercategoryUserCategoryId)
+                        return res.json({token})
+                        }
+                }
+            } else {
+                return next(ApiError.badRequest('Дата вышла за рамки границы'))
+            }
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
         }
-        const candidate = await User.findOne({where: {Email}})
-        if (candidate) {
-            return next(ApiError.badRequest('Пользователь уже существует с таким email'))
-        }
-        const hashPassword = await bcrypt.hash(Password,5)
-        const feedback = await Feedback.create()
-        const user = await User.create({UserName,Email,Password: hashPassword,
-            feedbackFeedbackId: feedback.FeedbackId, userroleUserRoleId})
-        const token = generateJwt(user.UserId,user.Email,user.userroleUserRoleId)
-        return res.json({token})
     }
 
     async login(req,res,next){
-        const {Email,Password} = req.body
-        const user = await User.findOne({where: {Email}})
-        if (!user) {
-            return next(ApiError.internal('Пользователь не существует'))
+        try {
+            const {Email,Password} = req.body
+            const user = await User.findAll({
+                where:{Email}
+            })
+            if (!user) {
+                return next(ApiError.internal('Пользователь не существует'))
+            }
+            let comparePassword = bcrypt.compareSync(Password,user[0].dataValues.Password)
+            if (!comparePassword) {
+                return next(ApiError.internal('Указан неверный пароль'))
+            }
+            const token = generateJwt(user[0].dataValues.UserId,user[0].dataValues.UserName,user[0].dataValues.Birthday,
+                user[0].dataValues.Email, user[0].dataValues.feedbackFeedbackId,user[0].dataValues.userroleUserRoleId,
+                user[0].dataValues.usercategoryUserCategoryId)
+            return res.json({token})
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
         }
-        let comparePassword = bcrypt.compareSync(Password,user.Password)
-        if (!comparePassword) {
-            return next(ApiError.internal('Указан неверный пароль'))
-        }
-        const token = generateJwt(user.UserId, user.Email, user.userroleUserRole)
-        return res.json(token)
     }
     async check(req,res,next){
         const token = generateJwt(req.user.UserId,req.user.Email,req.user.userroleUserRole)

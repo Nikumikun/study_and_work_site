@@ -1,5 +1,5 @@
 const sequelize = require('../db')
-const {DataTypes} = require('sequelize')
+const {DataTypes, DATEONLY} = require('sequelize')
 const Feedback = sequelize.define('feedback',{
     FeedbackId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     VK: {type: DataTypes.STRING, unique: true, allowNull: true},
@@ -21,6 +21,7 @@ const UserCategory = sequelize.define('usercategory',{
 const User = sequelize.define('user',{
     UserId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     UserName: {type: DataTypes.STRING, allowNull: false},
+    Birthday:{type: DataTypes.DATEONLY,allowNull:false},
     Email: {type: DataTypes.STRING, unique: true, allowNull: false},
     Password: {type: DataTypes.STRING, allowNull: false}
 }, {createdAt: false, updatedAt: false})
@@ -33,10 +34,6 @@ const TaskRole = sequelize.define('taskrole',{
     TaskRoleId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     Name: {type: DataTypes.STRING, unique: true, allowNull: false},
     Description: {type: DataTypes.STRING, allowNull: true}
-}, {createdAt: false, updatedAt: false})
-const Colour = sequelize.define('colour',{
-    ColourId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    Name: {type: DataTypes.STRING, unique: true, allowNull: false}
 }, {createdAt: false, updatedAt: false})
 const TaskStatus = sequelize.define('taskstatus',{
     TaskStatusId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -68,8 +65,6 @@ User.belongsTo(UserCategory)
 Decision.hasMany(Task)
 Task.belongsTo(Decision)
 
-Colour.hasMany(TaskStatus)
-TaskStatus.belongsTo(Colour)
 
 TaskStatus.hasMany(Task)
 Task.belongsTo(TaskStatus)
@@ -93,7 +88,6 @@ module.exports = {
     User,
     Decision,
     TaskRole,
-    Colour,
     TaskStatus,
     TaskCategory,
     Task

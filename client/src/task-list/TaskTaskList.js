@@ -3,21 +3,40 @@ import {makeAutoObservable} from "mobx";
 export default class TaskTaskList {
     constructor() {
         this._tasks = [
-            {id: 1, name: "test"}
+            {TaskId:1,Name:"test1",Price:200,Description:"test",decisionDecisionId:1},
+            {TaskId:2,Name:"test2",Price:300,Description:"test"},
+            {TaskId:3,Name:"test3",Price:400,Description:"test"},
+            {TaskId:4,Name:"test4",Price:500,Description:"test"},
+
         ]
-        this._decisions = []
-        this._taskstatus = [
-            {id: 1, name: "123"}
+        this._decisions = [
+            {DecisionId:1,Description:"test1"}
         ]
-        this._taskrole = []
-        this._taskcategories = []
-        this._usertaketask = []
-        this._usercreatetask = []
+        this._taskstatuses = [
+            {TaskStatusId:2,Name:"test"},
+            {TaskStatusId:3,Name:"123"}
+        ]
+        this._taskroles = [
+            {TaskRoleId:1,Name:"111"}
+        ]
+        this._taskcategories = [
+            {TaskCategoryId:1,Name:"testcategory"}
+        ]
+        this._usertaketaskes = []
+        this._usercreatetaskes = []
         this._selectedTaskStatus = {}
+        this._selectedTaskCategories = {}
+        this._selectedTaskRole = {}
         makeAutoObservable(this)
     }
     setSelectedTaskStatus(status) {
         this._selectedTaskStatus = status
+    }
+    setSelectedTaskCategory(status) {
+        this._selectedTaskCategories = status
+    }
+    setSelectedTaskRole(status) {
+        this._selectedTaskRole = status
     }
     setTasks(tasks){
         this._tasks = tasks
@@ -51,6 +70,12 @@ export default class TaskTaskList {
     }
     get selectedtaskstatus() {
         return this._selectedTaskStatus
+    }
+    get selectedtaskcategories() {
+        return this._selectedTaskCategories
+    }
+    get selectedtaskroles() {
+        return this._selectedTaskRole
     }
     get taskcategories() {
         return this._taskcategories
