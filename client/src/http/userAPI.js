@@ -17,16 +17,33 @@ export const getUserRole = async (Email,Password) => {
     localStorage.setItem('token',data.token)
     return jwtDecode(data.token)
 }
-
+export const fetchSelectedFeedback = async(id) => {
+    const {data} = await $host.get('api/feedback/' + id, id)
+    return data
+}
+export const fetchSelectedUserRoles = async(id) => {
+    const {data} = await $host.get('api/userrole/' + id, id)
+    return data
+}
+export const updateFeedback = async(FeedbackId,VK,WhatsApp,
+    Discord,OK,Telegram) => {
+    const {data} = await $host.patch('api/feedback/' + FeedbackId, {FeedbackId,VK,WhatsApp,
+        Discord,OK,Telegram})
+    return data
+}
+export const updateUserRole = async(FullName,UserRoleId) => {
+    const {data} = await $host.patch('api/user/updateRole',{FullName,UserRoleId})
+    return data
+}
 export const check = async (User) => {
     try{
-        const {data} = await $authHost.get('api/user/auth', User)
+        const {data} = await $host.get('api/user/auth', User)
         localStorage.setItem('token',data.token)
         return jwtDecode(data.token)
     }
      catch (e)
      {
-         console.log(e)
+        
      }
 
 }

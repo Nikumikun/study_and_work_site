@@ -4,12 +4,15 @@ import jwtDecode from "jwt-decode";
 export default class UserTaskList {
         constructor() {
             this._isAuth = localStorage.token ? true : false
-            console.log(localStorage.token)
             this._userroles = []
             this._users = localStorage.token ? jwtDecode(localStorage.token) : {}
             this._selectedUserRoles = []
             this._selectedUser = []
+            this._selectedFeedback = []
             makeAutoObservable(this)
+        }
+        setSelectedFeedback(feedback){
+            this._selectedFeedback = feedback
         }
         setSelectedUser(users)
         {
@@ -30,6 +33,14 @@ export default class UserTaskList {
         setUser(user){
         this._users = user
         }
+        setUserRoles(userroles){
+            this._userroles = userroles
+        }
+        
+        get selectedfeedback()
+        {
+            return this._selectedFeedback
+        }
         get selecteduser() {
             return this._selectedUser
         }
@@ -41,6 +52,9 @@ export default class UserTaskList {
         }
         get isAuth() {
             return this._isAuth
+        }
+        get user() {
+            return this._user
         }
         get users() {
             return this._users

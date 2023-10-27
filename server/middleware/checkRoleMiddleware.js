@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
-const {fn} = require("sequelize");
-module.exports = function(userroleUserRoleId) {
+
+module.exports = function(role) {
     return function (req, res, next) {
         if (req.method === "OPTIONS") {
             next()
@@ -11,14 +11,13 @@ module.exports = function(userroleUserRoleId) {
                 return res.status(401).json({message: "Не авторизован"})
             }
             const decoded = jwt.verify(token, process.env.SECRET_KEY)
-            if (decoded.userroleUserRole !== userroleUserRoleId) {
+            if (decoded.userroleUserRoleId !== role) {
                 return res.status(403).json({message: "Нет доступа"})
             }
-            req.user = decoded
+            req.user = decoded;
             next()
-
         } catch (e) {
-            res.status(401).json({message: "Не авторизован"})
+            console.log(e)
         }
     }
 }

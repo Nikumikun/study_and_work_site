@@ -28,6 +28,9 @@ services:
       - "3000:80"
     networks:
       - global-network
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:rw
+      - ./nginx/nginx-entrypoint.sh:/app/nginx/conf.d/nginx-entrypoint.sh:rw
   api:
     build:
       dockerfile: Dockerfile

@@ -60,6 +60,17 @@ class TaskController {
         )
         return res.json(task)
     }
+    async getHistory(req,res){
+        const {UserId} = req.params
+        const task = await Task.findAll(
+            {
+                where: UserId,
+                include: [{model:Decision}, {model:TaskRole}, {model:TaskStatus}, {model:User,as:'UserCreateTask'},
+                    {model: User,as: 'UserTakeTask'}]
+            },
+        )
+        return res.json(task)
+    }
     async delete(req, res, next){
         try {
             const {TaskId} = req.query

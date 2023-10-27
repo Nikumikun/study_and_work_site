@@ -6,7 +6,7 @@ const authMiddleware = require('../middleware/authMiddleware')
 const {checkAndMakeDir} = require("express-fileupload/lib/utilities");
 router.post('/registration', userController.registration)
 router.post('/login', userController.login)
-router.patch('/', checkRole(2), userController.update)
+router.patch('/updateRole', userController.updateRole)
 router.get('/auth',authMiddleware, userController.check)
 router.delete('/', userController.delete)
 module.exports = router

@@ -3,8 +3,7 @@ const ApiError = require('../error/ApiError')
 class taskcategoryController {
     async create(req,res,next){
         try {
-            const {Name} = req.body
-            const {Description} = req.body
+            const {Name,Description} = req.body
             const taskcategory = await TaskCategory.create({Name,Description})
             return res.json(taskcategory)
         } catch (e) {

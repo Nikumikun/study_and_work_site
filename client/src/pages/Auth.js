@@ -19,27 +19,42 @@ const Auth = observer(() => {
 
     const click = async () =>{
         try {
-                let data;
+            let data;
+            try {
                 if (isLogin)
                 {
-                    if (Password != null && Email != null)
+                    if (Password !== "" && Email !== "")
                     {
-                        data = await login(Email,Password)
+                        try {
+                            data = await login(Email,Password) 
+                        } catch (error) {
+                            alert("Проверьте введенные данные")
+                        }
+                        
                     } else {
                         alert("Введите данные для входа")
                     }
                 } else {
                     if (Password === AgainPassword){
-                    data = await registration(UserName,Birthday,Email,Password)
+                        try {
+                            data = await registration(UserName,Birthday,Email,Password)
+                        } catch (error) {
+                            alert("Проверьте введенные данные")
+                        }
                     } else {
                         alert("Не совпадает пароль с подтверждением пароля")
                     }
                 }
+            } catch (error) {
+                alert("Ошибка: " + error)
+            }
+            if (data !== undefined) {
                 user.setUser(data)
                 user.setIsAuth(true)
-                navigate(TASKLIST_ROUTE)
+                navigate(TASKLIST_ROUTE)  
+            }
         } catch (e) {
-            alert(e.response.data.message)
+            alert("Возникла ошибка, проверьте введённые данные")
         }
     }
     return (

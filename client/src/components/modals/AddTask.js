@@ -11,7 +11,7 @@ const AddTask = observer(({show,onHide,message}) => {
         onHide={onHide}
         size="lg"
         centered>
-        <Modal.Header>
+        <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
                 Добавление нового задания
             </Modal.Title>
@@ -69,7 +69,6 @@ const AddTask = observer(({show,onHide,message}) => {
             </Form>
         </Modal.Body>
             <Modal.Footer>
-                <Button style={{color:"black"}} variant={"outline-warning"} onClick={onHide}>Закрыть</Button>
                 <Button style={{color:"black"}} variant={"outline-warning"} onClick={onHide}>Добавить</Button>
             </Modal.Footer>
         </Modal>

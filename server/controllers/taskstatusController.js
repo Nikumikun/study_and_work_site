@@ -5,8 +5,7 @@ class taskstatusController {
         try {
             const {Name} = req.body
             const {Description} = req.body
-            const {colourColourId} = req.body
-            const taskstatus = await TaskStatus.create({Name,Description,colourColourId})
+            const taskstatus = await TaskStatus.create({Name,Description})
             return res.json(taskstatus)
         } catch (e) {
             next(ApiError.badRequest(e.message))

@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import Admin from "./pages/Admin";
 import UserProfile from "./pages/UserProfile";
 import TaskPage from "./pages/TaskPage";
@@ -21,6 +21,10 @@ export const authRoutes = [
         path: DECISION_ROUTE + '/:DecisionId',
         Component: <Decision />
     },
+    {
+        path: ADMIN_ROUTE,
+        Component: <Admin />
+    },
 ]
 export const publicRoutes = [
     {
@@ -34,10 +38,6 @@ export const publicRoutes = [
     {
         path: LOGIN_ROUTE,
         Component: <Auth />
-    },
-    {
-        path: ADMIN_ROUTE,
-        Component: <Admin />
     },
     {
         path: REGISTRATION_ROUTE,

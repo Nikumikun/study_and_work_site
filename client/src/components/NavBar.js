@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom";
 export const NavBar = observer(() => {
     const navigate = useNavigate()
     const {user} = useContext(Context)
+    console.log(user.users.userroleUserRoleId)
     const logOut = () => {
         user.setLogOut()
         navigate(WELCOME_ROUTE)
@@ -20,7 +21,7 @@ export const NavBar = observer(() => {
 
         <Navbar bg="dark" data-bs-theme="dark" >
             <Container>
-                <Container style={{alignSelf:"start"}}>
+                <Container>
                     <Navbar.Brand href={TASKLIST_ROUTE}>
                         <img src="/logo.png"
                              width="160"
@@ -34,15 +35,22 @@ export const NavBar = observer(() => {
                     <Nav>
                         <Dropdown>
                             <Dropdown.Toggle variant={"outline-warning"} style={{color: "white", borderColor: "orange"}}>Меню</Dropdown.Toggle>
-                            <Dropdown.Menu className={"dropdown-menu"}>
-                                {user.users.userroleUserRoleId === 2 &&
-                                    <Button className={"mb-2 mx-3"} variant={"outline-warning"} style={{width:"auto", color: "white"}}
-                                            onClick={btn}>Админ-панель</Button>}
+                            {user.users.userroleUserRoleId === 2 ? 
+                            <Dropdown.Menu className={"dropdown-menu"}> 
+                                <Button className={"mb-2 mx-3"} variant={"outline-warning"} style={{width:"auto", color: "white"}}
+                                            onClick={btn}>Админ-панель</Button>
                                 <Button className={"mb-2 mx-3"} variant={"outline-warning"} style={{width:"132px", color: "white"}}
                                         onClick={() => navigate(USERPROFILE_ROUTE)}>Профиль</Button>
                                 <Button className={"mb-2 mx-3"} variant={"outline-warning"} style={{width:"132px", color: "white"}}
-                                        onClick={() => logOut()}>Выход</Button>
-                            </Dropdown.Menu>
+                                        onClick={() => logOut()}>Выход</Button>                             
+                            </Dropdown.Menu> 
+                            :
+                            <Dropdown.Menu className={"dropdown-menu"}>
+                                <Button className={"mb-2 mx-3"} variant={"outline-warning"} style={{width:"132px", color: "white"}}
+                                        onClick={() => navigate(USERPROFILE_ROUTE)}>Профиль</Button>
+                                <Button className={"mb-2 mx-3"} variant={"outline-warning"} style={{width:"132px", color: "white"}}
+                                        onClick={() => logOut()}>Выход</Button>   
+                            </Dropdown.Menu>}
                         </Dropdown>
                     </Nav>
                     :

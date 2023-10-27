@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Button, Card, Row} from "react-bootstrap";
+import {Card, Row} from "react-bootstrap";
 import {useLocation} from "react-router-dom";
 import {LOGIN_ROUTE} from "../utils/consts";
 import {Context} from "../index";

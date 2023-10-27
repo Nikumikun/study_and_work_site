@@ -1,17 +1,42 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Button, Col, Container, Dropdown, Form, FormText, ListGroup, Modal, Tab, Row} from "react-bootstrap";
+import {Button, Container, Form, ListGroup, Modal} from "react-bootstrap";
 import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
+import { updateUserRole } from '../../http/userAPI';
 
 const AddWorkerOrAdmin = observer(({show, onHide}) => {
-    const {user} = useContext(Context)
+    const {user} = useContext(Context) 
+    const [FullName,setFullName] = useState('')
+    console.log(user.userroles)
+    const selectedUserRoleId = {}
+    useEffect(()=>{
+        updateUserRole().then(data => user.setUser(data))
+    },[])
+    const click = async () => {
+        try {
+            let data;
+            if (FullName === "" || FullName === undefined) {
+                alert("Сначала введите полное имя");
+            } else {
+                if (selectedUserRoleId === undefined || selectedUserRoleId === null) {
+                    alert("Выбирете роль для сотрудника")
+                } else {
+                    data = updateUserRole(FullName,selectedUserRoleId)
+                    onHide()
+                    alert("Роль пользователя была изменена")  
+                }
+            }
+        } catch (e) {
+            alert(e.response.data.message)
+        }
+    }
+
     return (
         <Modal
             show={show}
             onHide={onHide}
             size="lg"
-            centered
-        >
+            centered>
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
                     Добавление сотрудника/админа
@@ -20,20 +45,12 @@ const AddWorkerOrAdmin = observer(({show, onHide}) => {
             <Modal.Body>
                 <Form>
                     <Container>
-                        <Dropdown>
-                            <Dropdown.Toggle variant="warning">{user.selecteduser.UserName || "Выберите пользователя"}</Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                {user.users.map(user1 =>
-                                    <Dropdown.Item
-                                        onClick={() => user.setSelectedUser(user1)}
-                                        key={user1.UserId}
-                                    >
-                                        {user1.UserName}
-                                    </Dropdown.Item>
-                                )}
-                            </Dropdown.Menu>
-                        </Dropdown>
-                        <div>
+                        <Form.Control
+                        placeholder="Введите полное имя сотрудника (без ошибок)"
+                        value={FullName}
+                        type="text"
+                        onChange={e => setFullName(e.target.value)}/>
+                        <div className="mt-3">
                         Выбирете роль для пользователя
                         </div>
                             <ListGroup horizontal>
@@ -42,17 +59,17 @@ const AddWorkerOrAdmin = observer(({show, onHide}) => {
                                 style={{cursor: "pointer",borderColor:"orange"}}
                                 active={role.UserRoleId === user.selecteduserrole.UserRoleId}
                                 onClick={() => user.setSelectedUserRole(role)}
-                                key={role.UserRoleId}>
-                                    {role.Name}
+                                key={role.UserRoleId}
+                                value={selectedUserRoleId}>
+                                {role.Name}
                                 </ListGroup.Item>
                                 )}
-                                </ListGroup>   
+                            </ListGroup>   
                     </Container>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button style={{color:"black"}} variant={"outline-warning"} onClick={onHide}>Закрыть</Button>
-                <Button style={{color:"black"}} variant={"outline-warning"} onClick={onHide}>Добавить</Button>
+                <Button style={{color:"black"}} variant={"outline-warning"} onClick={click}>Обновить</Button>
             </Modal.Footer>
         </Modal>
     );

@@ -22,7 +22,6 @@ const CreateUserCategory = ({show,onHide}) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button style={{color:"black"}} variant={"outline-warning"} onClick={onHide}>Закрыть</Button>
                 <Button style={{color:"black"}} variant={"outline-warning"} onClick={onHide}>Добавить</Button>
             </Modal.Footer>
         </Modal>

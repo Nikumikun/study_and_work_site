@@ -4,7 +4,7 @@ const Feedback = sequelize.define('feedback',{
     FeedbackId: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     VK: {type: DataTypes.STRING, unique: true, allowNull: true},
     WhatsApp: {type: DataTypes.STRING, unique: true, allowNull: true},
-    Viber: {type: DataTypes.STRING, unique: true, allowNull: true},
+    Discord: {type: DataTypes.STRING, unique: true, allowNull: true},
     OK: {type: DataTypes.STRING, unique: true, allowNull: true},
     Telegram: {type: DataTypes.STRING, unique: true, allowNull: true}
 }, {createdAt: false, updatedAt: false})
@@ -52,7 +52,6 @@ const Task = sequelize.define('task',{
     Description: {type: DataTypes.STRING, allowNull: true}
 }, {createdAt: false, updatedAt: false})
 
-
 Feedback.hasMany(User)
 User.belongsTo(Feedback)
 
@@ -64,7 +63,6 @@ User.belongsTo(UserCategory)
 
 Decision.hasMany(Task)
 Task.belongsTo(Decision)
-
 
 TaskStatus.hasMany(Task)
 Task.belongsTo(TaskStatus)

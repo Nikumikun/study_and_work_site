@@ -15,6 +15,13 @@ class userroleController {
         const userroles = await UserRole.findAll()
         return res.json(userroles)
     }
+    async getOne(req,res){
+        const {UserRoleId} = req.body
+        const userroles = await UserRole.findOne({
+            where: UserRoleId
+        })
+        return res.json(userroles)
+    }
     async delete(req, res, next){
         try {
             const {UserRoleId} = req.query

@@ -18,6 +18,13 @@ class feedbackController {
         const feedbacks = await Feedback.findAll()
         return res.json(feedbacks)
     }
+    async getOne(req,res){
+        const {FeedbackId} = req.body
+        const feedbacks = await Feedback.findOne({
+            where: FeedbackId
+        })
+        return res.json(feedbacks)
+    }
     async delete(req, res, next){
         try {
             const {FeedbackId} = req.query
@@ -32,16 +39,16 @@ class feedbackController {
     }
     async update(req, res, next){
         try {
-            const {FeedbackId, VK, WhatsApp, Viber, OK, Telegram} = req.body
+            const {FeedbackId, VK, WhatsApp, Discord, OK, Telegram} = req.body
             const updateFeedback = await Feedback.update({
                     VK: VK,
                     WhatsApp: WhatsApp,
-                    Viber: Viber,
+                    Discord: Discord,
                     OK: OK,
                     Telegram: Telegram,
                 },
                 {
-                    where: {FeedbackId},
+                    where: {FeedbackId: FeedbackId},
                 })
             return res.json(updateFeedback)
         } catch (e) {

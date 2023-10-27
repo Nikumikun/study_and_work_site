@@ -53,6 +53,18 @@ class UserController {
 
     async login(req,res,next){
         try {
+            const findRoleAdmin = await UserRole.findOrCreate({
+                where:{
+                    Name: "Админ"
+                }, defaults: {Description: "Пользователь с правами админа"}})
+            const findRoleUser = await UserRole.findOrCreate({
+                where:{
+                    Name: "Пользователь"
+                }, defaults: {Description: "Пользователь без админ-прав"}})
+            const findRoleWorker = await UserRole.findOrCreate({
+                where:{
+                    Name: "Сотрудник",
+                }, defaults: {Description: "Пользователь с ограниченными правами админа"}})
             const {Email,Password} = req.body
             const user = await User.findAll({
                 where:{Email}
@@ -73,7 +85,9 @@ class UserController {
         }
     }
     async check(req,res,next){
-        const token = generateJwt(req.user.UserId,req.user.Email,req.user.userroleUserRole)
+        const token = generateJwt(req.user.UserId,req.user.UserName,req.user.Birthday,
+            req.user.Email,req.user.feedbackFeedbackId,
+            req.user.userroleUserRoleId,req.user.usercategoryUserCategoryId)
         return res.json({token})
     }
     async delete(req, res, next){
@@ -85,6 +99,27 @@ class UserController {
             return res.json({message: 'Запись была удалена'})
 
         } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
+    async updateRole(req,res,next) {
+        try {
+            
+        } catch (error) {
+            
+        }
+    }
+    async updateRole(req,res,next){
+        try {
+            const {UserName,userroleUserRoleId} = req.body
+            const updateRole = await User.update({
+                userroleUserRoleId: userroleUserRoleId
+            },
+            {
+                where: {UserName}
+            })
+            return res.json(updateRole)
+        } catch (error) {
             next(ApiError.badRequest(e.message))
         }
     }
