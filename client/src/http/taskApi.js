@@ -7,7 +7,7 @@ export const createDecision = async (decision) => {
 
 export const createTaskCategory = async (Name,Description) => {
     try {
-        const {data} = await $authHost.post('api/taskcategory/add', {Name,Description})
+        const {data} = await $host.post('api/taskcategory/add', {Name,Description})
         return data  
     } catch (error) {
         alert(error)
@@ -17,7 +17,7 @@ export const createTaskCategory = async (Name,Description) => {
 export const createTaskRole = async (Name,Description) => {
     
     try {
-        const {data} = await $authHost.post('api/taskrole/add', {Name,Description})
+        const {data} = await $host.post('api/taskrole/add', {Name,Description})
         return data
     } catch (error) {
         alert(error)
@@ -27,7 +27,7 @@ export const createTaskRole = async (Name,Description) => {
 export const createTaskStatus = async (Name,Description) => {
    
     try {
-        const {data} = await $authHost.post('api/taskstatus/add', {Name,Description})
+        const {data} = await $host.post('api/taskstatus/add', {Name,Description})
         return data 
     } catch (error) {
         alert(error)

@@ -15,7 +15,7 @@ const Admin = () => {
     const [WorkerOrAdminVisible,setWorkerOrAdminVisible] = useState(false)
     const {user} = useContext(Context)
     console.log(user.isAuth)
-    console.log(user.users)
+    console.log(user.userroles)
     return (
         <Container className="d-flex flex-column mt-5">
             <Button className="mt-3" variant={"outline-warning"} style={{color:"black"}} onClick={() => setUserCategoryVisible(true)}>Добавить категорию пользователя</Button>
