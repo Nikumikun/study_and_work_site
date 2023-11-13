@@ -7,11 +7,7 @@ import { updateUserRole } from '../../http/userAPI';
 const AddWorkerOrAdmin = observer(({show, onHide}) => {
     const {user} = useContext(Context) 
     const [FullName,setFullName] = useState('')
-    console.log(user.userroles)
     const selectedUserRoleId = {}
-    useEffect(()=>{
-        updateUserRole().then(data => user.setUser(data))
-    },[])
     const click = async () => {
         try {
             let data;

@@ -1,8 +1,8 @@
 import React, {createContext} from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './App';
-import UserTaskList from "./task-list/UserTaskList";
-import TaskTaskList from "./task-list/TaskTaskList";
+import UserTaskList from "./context/UserTaskList";
+import TaskTaskList from "./context/TaskTaskList";
 
 export const Context = createContext(null)
 

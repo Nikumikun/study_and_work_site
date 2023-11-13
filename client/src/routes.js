@@ -21,17 +21,19 @@ export const authRoutes = [
         path: DECISION_ROUTE + '/:DecisionId',
         Component: <Decision />
     },
-    
 ]
+export const AdminRoutes = [
+    {
+      path: ADMIN_ROUTE,
+      Component: <Admin />
+    },
+  ]
 export const publicRoutes = [
     {
         path: USERPROFILE_ROUTE,
         Component: <UserProfile />
     },
-    {
-        path: ADMIN_ROUTE,
-        Component: <Admin />
-    },
+    
     {
         path: WELCOME_ROUTE,
         Component: <Welcome/>

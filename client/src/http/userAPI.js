@@ -21,6 +21,10 @@ export const fetchSelectedFeedback = async(id) => {
     const {data} = await $host.get('api/feedback/' + id, id)
     return data
 }
+export const fetchUserRoles = async() =>{
+    const {data} = await $host.get('api/userrole/getAll')
+    return data
+}
 export const fetchSelectedUserRoles = async(id) => {
     const {data} = await $host.get('api/userrole/' + id, id)
     return data
@@ -35,8 +39,9 @@ export const updateUserRole = async(FullName,UserRoleId) => {
     const {data} = await $host.patch('api/user/updateRole',{FullName,UserRoleId})
     return data
 }
-export const check = async (User) => {
+export const check = async (token) => {
     try{
+        let User = jwtDecode(token)
         const {data} = await $host.get('api/user/auth', User)
         localStorage.setItem('token',data.token)
         return jwtDecode(data.token)

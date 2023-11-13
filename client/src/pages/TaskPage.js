@@ -7,10 +7,10 @@ import {observer} from "mobx-react-lite";
 
 const TaskPage = observer(() => {
     const {user} = useContext(Context)
-    const task = {TaskId:1,Name:"test1",Price:200,Description:"test",decisionDecisionId:1,taskstatusTaskStatusId:1,
-        taskroleTaskRoleId:1,taskcategoryTaskCategoryId:1,UserIdCreateTask:1,UserIdTakeTask:1}
     const location = useLocation()
     const isLogin = location.pathname === LOGIN_ROUTE
+    const task = user.selectedTask
+    console.log(task)
     return (
             <Card className="m-4" style={{height:window.innerHeight - 60 ,backgroundColor:"lightyellow",borderColor:"orange"}}>
                 <Row className="m-2">

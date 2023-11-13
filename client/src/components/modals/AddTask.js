@@ -1,10 +1,40 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {Context} from "../../index";
 import {Button, Container, Form, ListGroup, Modal} from "react-bootstrap";
 import {observer} from "mobx-react-lite";
+import { createTask } from '../../http/taskApi';
 
-const AddTask = observer(({show,onHide,message}) => {
-    const {task} = useContext(Context)
+
+const AddTask = observer(({show,onHide}) => {
+    const {user,task} = useContext(Context)
+    const [Name,setName] = useState('')
+    const [Description, setDescription] = useState('')
+    const [Price,setPrice] = useState('')
+    
+
+    const click = async () => {
+        try {
+            let data;
+            if (Name !== "" && Price !== "") {
+                const CategoryTask = {... task.selectedtaskcategories}.TaskCategoryId
+                const RoleTask = {... task.selectedtaskroles}.TaskRoleId
+                const UserCreateTaskId = {... user.users}.UserId
+                if (RoleTask !== undefined && CategoryTask !== undefined) {
+                    let data;
+                    data = createTask(Name,Price,Description,CategoryTask,RoleTask,UserCreateTaskId)
+                    console.log(data)
+                    onHide()
+                } else {
+                    alert("Вы забыли выбрать предмет и категорию задания")
+                }
+            } else
+            {
+                alert("Обязательно заполните пропущенные поля")
+            }
+        } catch (error) {
+            alert(error)
+        }
+    }
     return (
         <Modal
         show={show}
@@ -22,17 +52,21 @@ const AddTask = observer(({show,onHide,message}) => {
                     <Form.Control
                         className="mt-3"
                         placeholder="Название задания"
-                        style={{borderColor:"orange"}}>
+                        value={Name}
+                        style={{borderColor:"orange"}}
+                        onChange={e => setName(e.target.value)}>
                     </Form.Control>
 
                     <Form.Control
                         className="mt-3"
                         placeholder="Подробное описание задания"
+                        value={Description}
+                        onChange={e => setDescription(e.target.value)}
                         style={{borderColor:"orange"}}>
                     </Form.Control>
                     <div
                         className="mt-3">
-                        Выбирете тему задания
+                        Выбирете категорию задания
                     </div>
                     <ListGroup horizontal
                                className="mt-1">
@@ -47,7 +81,7 @@ const AddTask = observer(({show,onHide,message}) => {
                     </ListGroup>
                     <div
                         className="mt-3">
-                        Выбирете категорию задания
+                        Выбирете предмет задания
                     </div>
                     <ListGroup horizontal
                                className="mt-1">
@@ -63,13 +97,15 @@ const AddTask = observer(({show,onHide,message}) => {
                     <Form.Control
                         className="mt-3"
                         placeholder="Стоимость задания"
-                        style={{borderColor:"orange"}}>
+                        style={{borderColor:"orange"}}
+                        value={Price}
+                        onChange={e => setPrice(e.target.value)}>
                     </Form.Control>
                 </Container>
             </Form>
         </Modal.Body>
             <Modal.Footer>
-                <Button style={{color:"black"}} variant={"outline-warning"} onClick={onHide}>Добавить</Button>
+                <Button style={{color:"black"}} variant={"outline-warning"} onClick={click}>Добавить</Button>
             </Modal.Footer>
         </Modal>
     );

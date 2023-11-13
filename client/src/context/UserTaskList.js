@@ -8,11 +8,15 @@ export default class UserTaskList {
             this._users = localStorage.token ? jwtDecode(localStorage.token) : {}
             this._selectedUserRoles = []
             this._selectedUser = []
+            this._selectedTask = {}
             this._selectedFeedback = []
             makeAutoObservable(this)
         }
         setSelectedFeedback(feedback){
             this._selectedFeedback = feedback
+        }
+        setSelectedTask(task) {
+            this._selectedTask = task
         }
         setSelectedUser(users)
         {
@@ -36,7 +40,9 @@ export default class UserTaskList {
         setUserRoles(userroles){
             this._userroles = userroles
         }
-        
+        get selectedTask() {
+            return this._selectedTask
+        }
         get selectedfeedback()
         {
             return this._selectedFeedback

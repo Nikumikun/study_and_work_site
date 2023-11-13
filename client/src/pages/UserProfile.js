@@ -27,7 +27,7 @@ const UserProfile = observer(() => {
     const [UpdateFeedbackVisible,setUpdateFeedbackVisible] = useState(false)
     let roleName = { ... user.selecteduserrole}.Name
     let feedback = { ... user.selectedfeedback}
-    console.log(user.selectedfeedback)
+    console.log(user.userroles)
     return (
         <Card
              className="m-3" style={{height:window.innerHeight,

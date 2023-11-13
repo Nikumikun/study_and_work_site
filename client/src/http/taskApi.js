@@ -4,6 +4,14 @@ export const createDecision = async (decision) => {
     const {data} = await $host.post('api/decision/create', decision)
     return data
 }
+export const createTask = async (Name,Price,Description,TaskCategoryId,TaskRoleId,UserCreateTaskId) => {
+    try {
+       const {data} = await $host.post('api/task/add',{Name,Description,Price,TaskCategoryId,TaskRoleId,UserCreateTaskId})
+       return data 
+    } catch (error) {
+        alert(error)
+    }
+}
 
 export const createTaskCategory = async (Name,Description) => {
     try {

@@ -14,9 +14,9 @@ const CreateTaskCategory = ({show, onHide}) => {
             if (Name !== "" || Name !== undefined) {
                 data = createTaskCategory(Name,Description)
                 onHide()
-                alert("Категория задания была добавлена")
+                alert("Тип задания был добавлен")
             } else {
-                alert("Введите имя для категории")
+                alert("Введите название для типа")
             }
         } catch (error) {
             alert(error)
@@ -40,14 +40,14 @@ const CreateTaskCategory = ({show, onHide}) => {
                 <Form>
                     <Form.Control
                         className="m-2"
-                        placeholder={"Имя категории"} 
+                        placeholder={"Название типа"} 
                         value={Name} 
                         onChange={e =>setName(e.target.value)}
                         type="text"
                     />
                     <Form.Control
                         className="m-2"
-                        placeholder={"Описание категории"} 
+                        placeholder={"Описание типа"} 
                         value={Description} 
                         onChange={e =>setDescription(e.target.value)}
                         type="text"

@@ -3,9 +3,12 @@ const ApiError = require('../error/ApiError')
 class TaskController {
     async create(req,res,next){
         try {
-            let {Name,Price,Description,decisionDecisionId,taskstatusTaskStatusId,taskroleTaskRoleId, UserIdCreateTask} = req.body
-            const task = await Task.create({Name,Price,Description,decisionDecisionId,
-                taskstatusTaskStatusId,taskroleTaskRoleId, UserIdCreateTask})
+            const StatusCreated = await TaskStatus.findOrCreate({
+                where: {Name: "Ожидание"}
+            })
+            let {Name,Price,Description,CategoryTask,RoleTask, UserCreateTaskId} = req.body
+            const task = await Task.create({Name:Name,Price:Price,Description:Description,
+                taskstatusTaskStatusId:StatusCreated.TaskStatusId, taskcategoryTaskCategoryId: CategoryTask, taskroleTaskRoleId:RoleTask, UserIdCreateTask: UserCreateTaskId})
             return res.json(task)
         } catch (e) {
             next(ApiError.badRequest(e.message))

@@ -5,13 +5,14 @@ import {Spinner} from "react-bootstrap";
 import NavBar from "./components/NavBar";
 import {observer} from "mobx-react-lite";
 import {check} from "./http/userAPI";
-import { Context } from '.';
+import { Context } from './index';
 
 const App = observer(() => {
+  const {user,task} = useContext(Context)
   const [loading, setLoading] = useState(true)
     useEffect(() => {
         setTimeout(()=>{
-            check().then(data => {
+            check(localStorage.token).then(data => {
             }).finally(()=> setLoading(false))
         },1000)
     }, []);
@@ -24,7 +25,9 @@ const App = observer(() => {
     return (
     <BrowserRouter>
         <NavBar />
-        <AppRouter />
+        <section className={'page'}>
+          <AppRouter />
+        </section>
     </BrowserRouter>
   );
 })

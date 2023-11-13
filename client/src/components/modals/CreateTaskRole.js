@@ -13,9 +13,9 @@ const CreateTaskRole = ({show,onHide}) => {
             if (Name !== "" || Name !== undefined) {
                 data = createTaskRole(Name,Description);
                 onHide()
-                alert("Роль задания была добавлена");
+                alert("Предмет задания была добавлена");
             } else {
-                alert("Введите имя для роли")
+                alert("Введите название для предмета")
             }
         } catch (error) {
             alert(error)
@@ -30,21 +30,21 @@ const CreateTaskRole = ({show,onHide}) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Добавить роль задания
+                    Добавить предмет задания
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
                     <Form.Control
                         className="m-2"
-                        placeholder={"Имя роли"} 
+                        placeholder={"Название предмета"} 
                         value={Name} 
                         onChange={e =>setName(e.target.value)}
                         type="text"
                     />
                     <Form.Control
                         className="m-2"
-                        placeholder={"Описание роли"} 
+                        placeholder={"Описание предмета"} 
                         value={Description} 
                         onChange={e =>setDescription(e.target.value)}
                         type="text"
