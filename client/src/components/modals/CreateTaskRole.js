@@ -1,17 +1,13 @@
-import React, {useContext,useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import {Button, Form, Modal} from "react-bootstrap";
-import { Context } from '../..';
 import { createTaskRole } from '../../http/taskApi';
 
 const CreateTaskRole = ({show,onHide}) => {
-    const {task} = useContext(Context)
     const [Name,setName] = useState('')
-    const [Description,setDescription] = useState('')
     const click = async () => {
         try {
-            let data;
             if (Name !== "" || Name !== undefined) {
-                data = createTaskRole(Name,Description);
+                createTaskRole(Name);
                 onHide()
                 alert("Предмет задания была добавлена");
             } else {
@@ -30,7 +26,7 @@ const CreateTaskRole = ({show,onHide}) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Добавить предмет задания
+                    Добавить направление задания
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -42,13 +38,6 @@ const CreateTaskRole = ({show,onHide}) => {
                         onChange={e =>setName(e.target.value)}
                         type="text"
                     />
-                    <Form.Control
-                        className="m-2"
-                        placeholder={"Описание предмета"} 
-                        value={Description} 
-                        onChange={e =>setDescription(e.target.value)}
-                        type="text"
-                />
                 </Form>
             </Modal.Body>
             <Modal.Footer>

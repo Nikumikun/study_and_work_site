@@ -42,6 +42,8 @@ services:
       - ./server:/app
     networks:
       - global-network
+    depends_on:
+      - postgres
   client:
     stdin_open: true
     environment:

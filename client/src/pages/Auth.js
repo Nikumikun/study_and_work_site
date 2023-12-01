@@ -39,7 +39,7 @@ const Auth = observer(() => {
                         try {
                             data = await registration(UserName,Birthday,Email,Password)
                         } catch (error) {
-                            alert("Проверьте введенные данные")
+                            alert(error)
                         }
                     } else {
                         alert("Не совпадает пароль с подтверждением пароля")

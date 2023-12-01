@@ -1,22 +1,19 @@
-import React, {useContext,useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Form, Modal} from "react-bootstrap";
-import { Context } from '../..';
 import { createTaskCategory } from '../../http/taskApi';
 
 const CreateTaskCategory = ({show, onHide}) => {
-    const {task} = useContext(Context)
     const [Name,setName] = useState('')
-    const [Description,setDescription] = useState('')
+    const [StartPrice,setStartPrice] = useState('')
 
     const click = async () => {
         try {
-            let data;
             if (Name !== "" || Name !== undefined) {
-                data = createTaskCategory(Name,Description)
+                createTaskCategory(Name,StartPrice)
                 onHide()
-                alert("Тип задания был добавлен")
+                alert("Категория задания был добавлен")
             } else {
-                alert("Введите название для типа")
+                alert("Введите название для категории")
             }
         } catch (error) {
             alert(error)
@@ -40,17 +37,17 @@ const CreateTaskCategory = ({show, onHide}) => {
                 <Form>
                     <Form.Control
                         className="m-2"
-                        placeholder={"Название типа"} 
+                        placeholder={"Название категории"} 
                         value={Name} 
                         onChange={e =>setName(e.target.value)}
                         type="text"
                     />
                     <Form.Control
                         className="m-2"
-                        placeholder={"Описание типа"} 
-                        value={Description} 
-                        onChange={e =>setDescription(e.target.value)}
-                        type="text"
+                        placeholder={"Описание категории"} 
+                        value={StartPrice} 
+                        onChange={e =>setStartPrice(e.target.value)}
+                        type="real"
                 />
                 </Form>
             </Modal.Body>

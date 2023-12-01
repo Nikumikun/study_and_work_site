@@ -9,23 +9,57 @@ export default class TaskTaskList {
         this._taskcategories = []
         this._usertaketaskes = []
         this._usercreatetaskes = []
-        this._selectedTaskStatus = {}
+        this._selectedtaskstatus = {}
         this._selectedTaskCategories = {}
         this._selectedTaskRole = {}
+        this._taskchecker = []
+        this._selectedtaskchecker = {}
+        this._page = 1
+        this._totalCount = 0
+        this._limit = 4
         this._history = []
+        this._looktasks = []
         makeAutoObservable(this)
+    }
+    get looktasks()
+    {
+        return this._looktasks
+    }
+    setLookTasks(data){
+        this._looktasks = data
+    }
+    get selectedtaskchecker()
+    {
+        return this._selectedtaskchecker
+    }
+    setSelectedTaskChecker(selectedtaskchecker)
+    {
+        this._selectedtaskchecker = selectedtaskchecker
+    }
+    setTaskCheckers(taskchecker)
+    {
+        this._taskchecker = taskchecker
+    }
+    get taskchecker(){
+        return this._taskchecker
+    }
+    setPage(page) {
+        this._page = page
+    }
+    setTotalCount(count) {
+        this._totalCount = count
     }
     setHistory(historytask){
         this._history = historytask
     }
-    setSelectedTaskStatus(status) {
-        this._selectedTaskStatus = status
+    setselectedtaskstatus(status) {
+        this._selectedtaskstatus = status
     }
-    setSelectedTaskCategory(status) {
-        this._selectedTaskCategories = status
+    setSelectedTaskCategory(category) {
+        this._selectedTaskCategories = category
     }
-    setSelectedTaskRole(status) {
-        this._selectedTaskRole = status
+    setSelectedTaskRole(role) {
+        this._selectedTaskRole = role
     }
     setTasks(tasks){
         this._tasks = tasks
@@ -48,6 +82,15 @@ export default class TaskTaskList {
     setUserTakeTask(usertaketaskes){
         this._usertaketaskes = usertaketaskes
     }
+    get totalCount() {
+        return this._totalCount
+    }
+    get page() {
+        return this._page
+    }
+    get limit() {
+        return this._limit
+    }
     get historytask()
     {
         return this._history
@@ -62,7 +105,7 @@ export default class TaskTaskList {
         return this._taskstatuses
     }
     get selectedtaskstatus() {
-        return this._selectedTaskStatus
+        return this._selectedtaskstatus
     }
     get selectedtaskcategories() {
         return this._selectedTaskCategories
@@ -81,8 +124,5 @@ export default class TaskTaskList {
     }
     get usertaketaskes() {
         return this._usertaketaskes
-    }
-    get selectedTaskStatus() {
-        return this._selectedTaskStatus
     }
 }

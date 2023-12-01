@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "firefox",
+            "name": "http://next(ApiError.badRequest(e.message))",
+            "request": "launch",
+            "url": "http://next(ApiError.badRequest(e.message))"
+        }
+    ]
+}

@@ -19,9 +19,9 @@ class feedbackController {
         return res.json(feedbacks)
     }
     async getOne(req,res){
-        const {FeedbackId} = req.body
+        const Id = req.params.id
         const feedbacks = await Feedback.findOne({
-            where: FeedbackId
+            where: {FeedbackId: Id}
         })
         return res.json(feedbacks)
     }

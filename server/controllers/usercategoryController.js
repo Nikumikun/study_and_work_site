@@ -3,9 +3,8 @@ const ApiError = require('../error/ApiError')
 class usercategoryController {
     async create(req,res, next){
         try {
-            const {Name} = req.body
-            const {Description} = req.body
-            const usercategory = await UserCategory.create({Name,Description})
+            const Name = req.body
+            const usercategory = await UserCategory.create({Name})
             return res.json(usercategory)
         } catch (e) {
             next(ApiError.badRequest(e.message))
@@ -13,6 +12,13 @@ class usercategoryController {
     }
     async getAll(req,res){
         const usercategories = await UserCategory.findAll()
+        return res.json(usercategories)
+    }
+    async getOne(req,res){
+        const Id = req.params.Id
+        const usercategories = await UserCategory.findOne({
+            where: {UserCategoryId:Id}
+        })
         return res.json(usercategories)
     }
     async delete(req, res, next){

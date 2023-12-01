@@ -1,4 +1,4 @@
-FROM nginx
+FROM nginx:latest
 WORKDIR /app
 COPY ./default.conf /etc/nginx/conf.d/default.conf
 COPY  ./nginx-entrypoint.sh /app/nginx/nginx-entrypoint.sh

@@ -12,7 +12,7 @@ const StatusBar = observer(() =>
                 <ListGroup.Item
                     style={{cursor: "pointer",borderColor:"orange"}}
                     active={taskstatus.TaskStatusId === task.selectedtaskstatus.TaskStatusId}
-                    onClick={() => task.setSelectedTaskStatus(taskstatus)}
+                    onClick={() => task.setselectedtaskstatus(taskstatus)}
                     key={taskstatus.TaskStatusId}>
                     {taskstatus.Name}
                 </ListGroup.Item>

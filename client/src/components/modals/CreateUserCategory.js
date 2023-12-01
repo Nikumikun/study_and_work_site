@@ -11,13 +11,13 @@ const CreateUserCategory = ({show,onHide}) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Добавить категория пользователя
+                    Добавить специальность пользователя
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
                     <Form.Control
-                        placeholder={"Имя категории пользователя"}
+                        placeholder={"Имя специальности пользователя"}
                     />
                 </Form>
             </Modal.Body>

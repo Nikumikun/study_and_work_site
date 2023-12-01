@@ -3,13 +3,25 @@ const ApiError = require('../error/ApiError')
 class taskroleController {
     async create(req,res,next){
         try {
-            const {Name,Description} = req.body
+            const {Name} = req.body
             const taskrole = await TaskRole.create(
-                {Name:Name,
-                Description:Description})
+                {Name:Name})
             return res.json(taskrole)
         } catch (e) {
             next(ApiError.badRequest(e.message))
+        }
+    }
+    async getTaskRole(req,res){
+        const TaskRoleId = req.params.Id
+        if (TaskRoleId !== undefined) {
+            const selectedRole= await TaskRole.findOne(
+            {
+                where: {TaskRoleId},
+            }
+        )
+        return res.json(selectedRole)
+        } else {
+            return console.log("Пусто")
         }
     }
     async getAll(req,res){
@@ -30,10 +42,9 @@ class taskroleController {
     }
     async update(req, res, next){
         try {
-            const {TaskRoleId, Name, Description} = req.body
+            const {TaskRoleId, Name} = req.body
             const updateTaskRole = await TaskRole.update({
-                    Name: Name,
-                    Description: Description,
+                    Name: Name
                 },
                 {
                     where: {TaskRoleId},

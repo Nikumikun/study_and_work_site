@@ -16,9 +16,9 @@ class userroleController {
         return res.json(userroles)
     }
     async getOne(req,res){
-        const {UserRoleId} = req.body
+        const {UserRoleId} = req.params
         const userroles = await UserRole.findOne({
-            where: UserRoleId
+            where: {UserRoleId:UserRoleId}
         })
         return res.json(userroles)
     }

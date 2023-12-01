@@ -5,11 +5,20 @@ const ApiError = require('../error/ApiError')
 class decisionController {
     async create(req,res, next){
         try {
-            const {Description} = req.body
-            const {File} = req.files
-            let fileName = uuid.v4() + ".docx"
-            await File.mv(path.resolve(__dirname, '..', 'static', fileName))
-            const decision = await Decision.create({Description,File: fileName})
+            const {Description,Address} = req.body
+            console.log(Description,Address)
+            const taskchecker = await TaskChecker.findOrCreate({
+                where: {Name: "На проверке"}
+            })
+            const decision = await Decision.create({Description,Address})
+            const task = await Task.update(
+                {
+                    decisionDecisionId: decision.DecisionId,
+                    taskcheckerTaskCheckerId: taskchecker.TaskCheckerId,
+                },
+                {
+                    where: {TaskId: Task}
+                })
             return res.json(decision)
         } catch (e) {
             next(ApiError.badRequest(e.message))

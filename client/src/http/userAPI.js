@@ -6,11 +6,14 @@ export const registration = async (UserName,Birthday,Email,Password,userroleUser
     localStorage.setItem('token',data.token)
     return jwtDecode(data.token)
 }
-
 export const login = async (Email,Password) => {
     const {data} = await $host.post('api/user/login', {Email,Password})
     localStorage.setItem('token',data.token)
     return jwtDecode(data.token)
+}
+export const getAllUsers = async () => {
+    const {data} = await $host.get('api/user/userslist')
+    return data
 }
 export const getUserRole = async (Email,Password) => {
     const {data} = await $authHost.post('api/user/auth', {Email,Password})
@@ -18,7 +21,17 @@ export const getUserRole = async (Email,Password) => {
     return jwtDecode(data.token)
 }
 export const fetchSelectedFeedback = async(id) => {
-    const {data} = await $host.get('api/feedback/' + id, id)
+    try {
+        console.log(id)
+        const {data} = await $host.get('api/feedback/'+id, {params:{id}})
+        return data
+    } catch (error) {
+       console.log(error) 
+    }
+    
+}
+export const fetchUserCategory = async() =>{
+    const {data} = await $host.get('api/usercategory/')
     return data
 }
 export const fetchUserRoles = async() =>{
@@ -26,17 +39,24 @@ export const fetchUserRoles = async() =>{
     return data
 }
 export const fetchSelectedUserRoles = async(id) => {
-    const {data} = await $host.get('api/userrole/' + id, id)
+    const {data} = await $host.get('api/userrole/' + id, {params:{id}})
     return data
 }
-export const updateFeedback = async(FeedbackId,VK,WhatsApp,
-    Discord,OK,Telegram) => {
+export const fetchSelectedUserCategory = async(Id) => {
+    const {data} = await $host.get('api/usercategory/' + Id, {params:{Id}})
+    return data
+}
+export const updateFeedback = async(FeedbackId,VK,WhatsApp,Discord,OK,Telegram) => {
     const {data} = await $host.patch('api/feedback/' + FeedbackId, {FeedbackId,VK,WhatsApp,
         Discord,OK,Telegram})
     return data
 }
-export const updateUserRole = async(FullName,UserRoleId) => {
-    const {data} = await $host.patch('api/user/updateRole',{FullName,UserRoleId})
+export const updateUserRole = async(Id,RoleId,CategoryId) => {
+    const {data} = await $host.patch('api/user/updateRole',{Id,RoleId,CategoryId})
+    return data
+}
+export const BlackList = async (Id) =>{
+    const {data} = await $host.patch('api/user/blacklist',{Id})
     return data
 }
 export const check = async (token) => {

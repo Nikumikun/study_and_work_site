@@ -3,11 +3,24 @@ const ApiError = require('../error/ApiError')
 class taskcategoryController {
     async create(req,res,next){
         try {
-            const {Name,Description} = req.body
-            const taskcategory = await TaskCategory.create({Name,Description})
+            const {Name} = req.body
+            const taskcategory = await TaskCategory.create({Name})
             return res.json(taskcategory)
         } catch (e) {
             next(ApiError.badRequest(e.message))
+        }
+    }
+    async getTaskCategory(req,res){
+        const TaskCategoryId = req.params.Id
+        if (TaskCategoryId !== undefined) {
+            const selectedCategory = await TaskCategory.findOne(
+            {
+                where: {TaskCategoryId},
+            }
+        )
+        return res.json(selectedCategory)
+        } else {
+            return console.log("Пусто")
         }
     }
     async getAll(req,res){
@@ -28,10 +41,9 @@ class taskcategoryController {
     }
     async update(req, res, next){
         try {
-            const {TaskCategoryId, Name, Description} = req.body
+            const {TaskCategoryId, Name} = req.body
             const updateTaskCategory = await TaskCategory.update({
-                    Name: Name,
-                    Description: Description,
+                    Name: Name
                 },
                 {
                     where: {TaskCategoryId},

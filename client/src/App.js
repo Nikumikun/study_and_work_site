@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar";
 import {observer} from "mobx-react-lite";
 import {check} from "./http/userAPI";
 import { Context } from './index';
+import Footer from './components/Footer';
 
 const App = observer(() => {
   const {user,task} = useContext(Context)
@@ -19,7 +20,7 @@ const App = observer(() => {
 
   if (loading)
   {
-      return <Spinner animation={"grow"} />
+      return <Spinner animation={"grow"} variant={"warning"}/>
   }
 
     return (
@@ -29,6 +30,7 @@ const App = observer(() => {
           <AppRouter />
         </section>
     </BrowserRouter>
+    
   );
 })
 
