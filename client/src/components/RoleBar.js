@@ -10,7 +10,7 @@ const RoleBar = observer(() => {
             {task.taskroles.map(taskrole =>
                 <ListGroup.Item
                     style={{cursor: "pointer",borderColor:"orange"}}
-                    active={taskrole.TaskRoleId === task.selectedtaskroles.TaskRoleId}
+                    active={taskrole.TaskRoleId == task.selectedtaskroles.TaskRoleId}
                     onClick={() => task.setSelectedTaskRole(taskrole)}
                     key={taskrole.TaskRoleId}>
                     {taskrole.Name}

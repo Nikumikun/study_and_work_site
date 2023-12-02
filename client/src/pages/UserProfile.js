@@ -15,10 +15,10 @@ function getAge(date) {
     return `${age} год/лет`
 }
 function setStatusInList(status,UserIdCreateTask,UserIdTakeTask,context){
-    if (UserIdCreateTask === context.users.UserId) {
+    if (UserIdCreateTask == context.users.UserId) {
         status = "Владелец"
         return status
-    } if (UserIdTakeTask === context.users.UserId) {
+    } if (UserIdTakeTask == context.users.UserId) {
         status = "Автор"
         return status
     } else {
@@ -100,7 +100,7 @@ const UserProfile = observer(() => {
                         {
                             task.historytask.map(history =>
                             <div>
-                            { history.UserIdCreateTask === user.users.UserId || history.UserIdTakeTask === user.users.UserId ?
+                            { history.UserIdCreateTask == user.users.UserId || history.UserIdTakeTask == user.users.UserId ?
                                 <ListGroup.Item key={history.TaskId} history={history}>
                                     {history.Name} {history.Price} руб. {{... task.taskstatuses[history.taskstatusTaskStatusId - 1]}.Name} {setStatusInList(CreateOrTakeTask,history.UserIdCreateTask,history.UserIdTakeTask,user)} <Button variant="warning"
                                      onClick={(()=>(click(history.TaskId)))}>Перейти</Button>
@@ -117,9 +117,9 @@ const UserProfile = observer(() => {
                         {
                             task.historytask.map(history =>
                             <div>
-                                { history.taskstatus.Name === "Выполнено" ?
+                                { history.taskstatus.Name == "Выполнено" ?
                                     <div>
-                                { history.UserIdCreateTask === user.users.UserId || history.UserIdTakeTask === user.users.UserId ?
+                                { history.UserIdCreateTask == user.users.UserId || history.UserIdTakeTask == user.users.UserId ?
                                 <ListGroup.Item key={history.TaskId} history={history}>
                                     {history.Name} {history.Price} руб. {{... task.taskstatuses[history.taskstatusTaskStatusId - 1]}.Name} {setStatusInList(CreateOrTakeTask,history.UserIdCreateTask,history.UserIdTakeTask,user)} <Button variant="warning"
                                      onClick={(()=>(click(history.TaskId)))}>Перейти</Button>

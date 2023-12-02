@@ -10,7 +10,7 @@ const Auth = observer(() => {
     const {user} = useContext(Context)
     const location = useLocation()
     const navigate = useNavigate()
-    const isLogin = location.pathname === LOGIN_ROUTE
+    const isLogin = location.pathname == LOGIN_ROUTE
     const [Email,setEmail] = useState('')
     const [Password,setPassword] = useState('')
     const [AgainPassword,setAgainPassword] = useState('')
@@ -35,7 +35,7 @@ const Auth = observer(() => {
                         alert("Введите данные для входа")
                     }
                 } else {
-                    if (Password === AgainPassword){
+                    if (Password == AgainPassword){
                         try {
                             data = await registration(UserName,Birthday,Email,Password)
                         } catch (error) {

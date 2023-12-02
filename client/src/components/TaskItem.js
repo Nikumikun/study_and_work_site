@@ -8,14 +8,13 @@ import {TASKPAGE_ROUTE} from "../utils/consts";
 const TaskItem = observer(({task}) => {
     const {user} = useContext(Context)
     const navigate = useNavigate()
-    console.log()
     const click = async () => {
         localStorage.setItem('TaskId',task.TaskId)
         navigate(TASKPAGE_ROUTE + '/' + task.TaskId)
     }
     return (
         <div className="p-2 align-items-center">
-            {user.users.userroleUserRoleId === 1 ? 
+            {user.users.userroleUserRoleId == 1 ? 
             <Card style={{cursor:'pointer',borderColor:"orange",
             backgroundColor:"lightyellow"}}
             onClick={click}>
@@ -31,15 +30,15 @@ const TaskItem = observer(({task}) => {
             </Card>
             :
             <div>
-            {task.taskstatusTaskStatusId === undefined ? 
+            {task.taskstatusTaskStatusId == undefined ? 
             <div></div>
             :
             <div>
-                { {... task}.taskstatus.Name === "Выполнено" ?
+                { {... task}.taskstatus.Name == "Выполнено" ?
                 <div></div>
                 :
                 <div>
-                    {user.users.userroleUserRoleId === 3 && {... task.taskstatus}.Name === "Ожидание" ?
+                    {user.users.userroleUserRoleId == 3 && {... task.taskstatus}.Name == "Ожидание" ?
                         <Card style={{cursor:'pointer',borderColor:"orange",
             backgroundColor:"lightyellow"}}
             onClick={click}>
@@ -56,7 +55,7 @@ const TaskItem = observer(({task}) => {
                     <div>
                         {user.users.UserId !== undefined ?
                         <div>
-                            { task.UserIdCreateTask === user.users.UserId  || task.UserIdTakeTask === user.users.UserId ?
+                            { task.UserIdCreateTask == user.users.UserId  || task.UserIdTakeTask == user.users.UserId ?
                             <Card style={{cursor:'pointer',borderColor:"orange",
                         backgroundColor:"lightyellow"}}
                         onClick={click}>

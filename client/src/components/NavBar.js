@@ -34,7 +34,7 @@ export const NavBar = observer(() => {
                 
                 {user.isAuth ?
                     <Nav> 
-                        {user.users.userroleUserRoleId === 1? 
+                        {user.users.userroleUserRoleId == 1? 
                         <ButtonGroup >
                         <Button variant={"outline-warning"} style={{width:"auto", height:"65px", color: "white"}}
                                              onClick={() => navigate(ADMIN_ROUTE)}>Админ-панель</Button>

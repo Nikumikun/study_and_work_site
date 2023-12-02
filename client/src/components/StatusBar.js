@@ -11,7 +11,7 @@ const StatusBar = observer(() =>
                 {task.taskstatuses.map(taskstatus =>
                 <ListGroup.Item
                     style={{cursor: "pointer",borderColor:"orange"}}
-                    active={taskstatus.TaskStatusId === task.selectedtaskstatus.TaskStatusId}
+                    active={taskstatus.TaskStatusId == task.selectedtaskstatus.TaskStatusId}
                     onClick={() => task.setselectedtaskstatus(taskstatus)}
                     key={taskstatus.TaskStatusId}>
                     {taskstatus.Name}

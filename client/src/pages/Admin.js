@@ -20,8 +20,7 @@ const Admin = observer(() => {
     const [TaskRoleVisible,setTaskRoleVisible] = useState(false)
     const [TaskCategoryVisible,setTaskCategoryVisible] = useState(false)
     const [LookTasksVisible,setLookTasksVisible] = useState(false)
-    const {user,task} = useContext(Context)
-    console.log(task.taskroles)
+    const {user} = useContext(Context)
     return (
         <Container className="d-flex flex-column mt-5">
             <Button className="mt-3" variant={"outline-warning"} style={{color:"black"}} onClick={() => setUserCategoryVisible(true)}>Добавить категорию пользователя</Button>

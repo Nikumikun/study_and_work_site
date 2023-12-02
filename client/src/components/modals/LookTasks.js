@@ -17,8 +17,7 @@ useEffect(()=>{
 
 const click = async (Id) => {
     try {
-        console.log(Id)
-        if (Id === "" || Id === undefined) {
+        if (Id == "" || Id == undefined) {
             alert("Заполните Id")
         } else {
             completeTask(Id)
@@ -58,7 +57,7 @@ return (
             {task.taskchecker.map(check =>
                 <ListGroup.Item
                     style={{cursor: "pointer",borderColor:"orange"}}
-                    active={check.TaskCheckerId === task.selectedtaskchecker.TaskCheckerId}
+                    active={check.TaskCheckerId == task.selectedtaskchecker.TaskCheckerId}
                     onClick={() => task.setSelectedTaskChecker(check)}
                     key={check.TaskCheckerId}>
                     {check.Name}

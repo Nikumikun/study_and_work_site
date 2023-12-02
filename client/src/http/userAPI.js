@@ -22,11 +22,10 @@ export const getUserRole = async (Email,Password) => {
 }
 export const fetchSelectedFeedback = async(id) => {
     try {
-        console.log(id)
         const {data} = await $host.get('api/feedback/'+id, {params:{id}})
         return data
     } catch (error) {
-       console.log(error) 
+       console.log(error.response.data.message) 
     }
     
 }

@@ -5,7 +5,7 @@ import {observer} from "mobx-react-lite";
 import { updateUserRole, getAllUsers,fetchUserCategory,BlackList } from '../../http/userAPI';
 
 function nullCategory(category) {
-    if (category === null) {
+    if (category == null) {
         return "Отсутствует"
     } else {
         return category.Name
@@ -19,22 +19,19 @@ useEffect(()=>{
     getAllUsers().then(data => user.setUsersList(data))
     fetchUserCategory().then(data => user.setUserCategory(data))
 },[])
-console.log(user.userslist)
 const click = async (Id,selectedUserRoleId,selectedUserCategoryId) => {
     try {
-        console.log(Id,selectedUserRoleId)
         let data;
-        if (Id === "" || Id === undefined) {
+        if (Id == "" || Id == undefined) {
             alert("Сначала введите Id пользователя");
         } else {
-            if (selectedUserRoleId === undefined || selectedUserRoleId === null) {
+            if (selectedUserRoleId == undefined || selectedUserRoleId == null) {
                 alert("Выберете роль для сотрудника")
-            } else if (selectedUserCategoryId === undefined || selectedUserCategoryId === null) {
+            } else if (selectedUserCategoryId == undefined || selectedUserCategoryId == null) {
                 alert("Выберете категорию для сотрудника")
             } else 
             {
                 data = updateUserRole(Id,selectedUserRoleId,selectedUserCategoryId)
-                console.log(data)
                 onHide()
                 alert("Роль пользователя была изменена")  
             }
@@ -46,13 +43,11 @@ const click = async (Id,selectedUserRoleId,selectedUserCategoryId) => {
 
 const clickBan = async (Id) => {
     try {
-        console.log(Id)
         let data;
-        if (Id === "" || Id === undefined) {
+        if (Id == "" || Id == undefined) {
             alert("Сначала введите Id пользователя");
         } else {
             data = BlackList(Id)
-            console.log(data)
             onHide()
             alert("Пользователь №" + Id + " был внесен в черный список")  
         }
@@ -86,7 +81,7 @@ return (
                                 {user.userroles.map(role =>
                                 <ListGroup.Item
                                 style={{cursor: "pointer",borderColor:"orange"}}
-                                active={role.UserRoleId === user.selecteduserrole.UserRoleId}
+                                active={role.UserRoleId == user.selecteduserrole.UserRoleId}
                                 onClick={() => user.setSelectedUserRole(role)}
                                 key={role.UserRoleId}>
                                 {role.Name}
@@ -100,7 +95,7 @@ return (
                                 {user.usercategory.map(category =>
                                 <ListGroup.Item
                                 style={{cursor: "pointer",borderColor:"orange"}}
-                                active={category.UserCategoryId === user.selectedusercategory.UserCategoryId}
+                                active={category.UserCategoryId == user.selectedusercategory.UserCategoryId}
                                 onClick={() => user.setselectedusercategory(category)}
                                 key={category.UserCategoryId}>
                                 {category.Name}

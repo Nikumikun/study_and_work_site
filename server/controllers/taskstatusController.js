@@ -12,7 +12,6 @@ class taskstatusController {
     }
     async getTaskStatus(req,res){
         const TaskStatusId = req.params.Id
-        console.log(TaskStatusId)
         if (TaskStatusId !== undefined) {
             const selectedStatus = await TaskStatus.findOne(
             {

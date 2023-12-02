@@ -11,16 +11,16 @@ function click(TaskId,UserId,Comment){
         addComment(TaskId,UserId,Comment)
         alert("Комментарий добавлен, обновите страницу задания")
     } catch (error) {
-        console.log(error)
+        console.log(error.response.data.message)
     }
     
 }
 
 function commentator(CommentatorId,UserIdCreateTask,UserIdTakeTask,AdminRoleId,UserId){
-    if (CommentatorId === UserIdCreateTask) {
+    if (CommentatorId == UserIdCreateTask) {
         const owner = "Заказчик"
         return owner
-    } else if (CommentatorId === UserIdTakeTask) {
+    } else if (CommentatorId == UserIdTakeTask) {
         const author = "Автор"
         return author
     } else
@@ -49,7 +49,6 @@ const TaskPage = observer(() => {
         'Description': task.Description,
     }
     user.setUpdateTask(datatask)
-    console.log(task)
     return (
             <Card className="m-4" style={{height:window.innerHeight - 60 ,backgroundColor:"lightyellow",borderColor:"orange"}}>
                 <Card.Body>
@@ -59,7 +58,7 @@ const TaskPage = observer(() => {
                 <Card.Text>
                 <Row className="m-2">
                     <div>{{... task.taskstatus}.Name} | {{... task.taskrole}.Name} | {{... task.taskcategory}.Name}</div>
-                    {user.users.userroleUserRoleId === 1 ?
+                    {user.users.userroleUserRoleId == 1 ?
                         <div>
                         <div>Владелец: {task.UserIdCreateTask}</div>
                         <div>Автор: {task.UserIdTakeTask}</div>
@@ -72,13 +71,13 @@ const TaskPage = observer(() => {
                     Описание: {task.Description}
                 </Row>
                 <Row className="m-2"> Ссылка на документ:
-                {user.users.userroleUserRoleId === 1 ?
+                {user.users.userroleUserRoleId == 1 ?
                 <div>
                     <a href={task.Address}>{""+task.Address}</a>
                 </div>
                 :
                 <div>
-                    {user.users.UserId === task.UserIdCreateTask ||  user.users.UserId === task.UserIdTakeTask?
+                    {user.users.UserId == task.UserIdCreateTask ||  user.users.UserId == task.UserIdTakeTask?
                     <a href={task.Address}>{""+task.Address}</a>
                         :
                     <div></div>
@@ -93,7 +92,7 @@ const TaskPage = observer(() => {
                     <h3>{task.Price} руб.</h3>
                     :
                     <div>
-                      {user.users.UserId === task.UserIdCreateTask || user.users.UserId === task.UserIdCreateTask?
+                      {user.users.UserId == task.UserIdCreateTask || user.users.UserId == task.UserIdCreateTask?
                         <h3>{task.Price} руб.</h3>
                         :
                         <div></div>
@@ -105,7 +104,7 @@ const TaskPage = observer(() => {
                 </Row>
                 <div>
                     {
-                        user.users.UserId === task.UserIdCreateTask ?
+                        user.users.UserId == task.UserIdCreateTask ?
                         <div>
                         <Button onClick={() => setUpdateTaskVisible(true)} type="primary" variant="warning">Изменить задание</Button>
                         <AddTask show={UpdateTaskVisible} onHide={()=>setUpdateTaskVisible(false)} updatetask={datatask}/>
@@ -116,13 +115,13 @@ const TaskPage = observer(() => {
                     }
                 </div>
                 <div>
-                    {user.users.userroleUserRoleId !== 2  && task.UserIdTakeTask === null ?
+                    {user.users.userroleUserRoleId !== 2  && task.UserIdTakeTask == null ?
                     <Button style={{width: window.innerWidth - 100}} variant="warning" onClick={() => updateTaskAndDecision(task.TaskId,user.users.UserId)}>Взять задание</Button>
                     :
                     <div>
-                        { user.users.userroleUserRoleId !== 2  && task.UserIdTakeTask === user.users.UserId ?
+                        { user.users.userroleUserRoleId !== 2  && task.UserIdTakeTask == user.users.UserId ?
                         <div>
-                            { task.decision === null ?
+                            { task.decision == null ?
                                 <div>
                                 <Button onClick={() => setDicisionVisible(true)} style={{width: window.innerWidth - 100}} variant="warning"> Прикрепить решение задачи</Button>
                                 <Decision show={DecisionVisible} onHide={()=>setDicisionVisible(false)} Task={task.TaskId}/>
@@ -144,7 +143,7 @@ const TaskPage = observer(() => {
                     
                 </div>
                 <div>
-                    {user.users.userroleUserRoleId === 1 ?
+                    {user.users.userroleUserRoleId == 1 ?
                     <div>
                         <div>
                     <Form.Control
@@ -161,7 +160,7 @@ const TaskPage = observer(() => {
                             user.selectedtaskcomments.map(comment =>
                                 <div>
                                     {
-                                    comment.TaskId === task.TaskId ?
+                                    comment.TaskId == task.TaskId ?
                                 
                                 <ListGroup.Item key={comment.CommentId} comment={comment}>
                                     {commentator(comment.UserIdSendComment,task.UserIdCreateTask,task.UserIdTakeTask)} пишет:
@@ -178,7 +177,7 @@ const TaskPage = observer(() => {
                     </div>
                     :
                     <div>
-                        {user.users.UserId === task.UserIdCreateTask || user.users.UserId === task.UserIdTakeTask ?
+                        {user.users.UserId == task.UserIdCreateTask || user.users.UserId == task.UserIdTakeTask ?
                         <div>
                             <div>
                 <Form.Control
@@ -195,7 +194,7 @@ const TaskPage = observer(() => {
                         user.selectedtaskcomments.map(comment =>
                             <div>
                                 {
-                                    comment.TaskId === task.TaskId ?
+                                    comment.TaskId == task.TaskId ?
                                 
                                 <ListGroup.Item key={comment.CommentId} comment={comment}>
                                     {commentator(comment.UserIdSendComment,task.UserIdCreateTask,task.UserIdTakeTask)} пишет:

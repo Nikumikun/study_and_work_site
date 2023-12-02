@@ -4,7 +4,6 @@ class taskcommentsController {
     async addComment(req,res,next){
         try {
         const {TaskId,UserId,Comment} = req.body
-        console.log(TaskId,UserId,Comment)
         const taskcomments = await TaskComments.create({TaskId:TaskId,UserIdSendComment:UserId,Comment:Comment})
         return res.json(taskcomments)
         } catch (e) {

@@ -15,7 +15,7 @@ const PageCounter = observer( () => {
       {pages.map(page =>
         <Pagination.Item
           key={page}
-          active={task.page === page}
+          active={task.page == page}
           onClick={() => task.setPage(page)}
         >
           {page}

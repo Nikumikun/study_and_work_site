@@ -7,7 +7,6 @@ import { createTask, updateTask } from '../../http/taskApi';
 const AddTask = observer(({show,onHide}) => {
     const {user,task} = useContext(Context)
     const updatetask = {... user.updatetask}
-    console.log(Object.keys(updatetask).length)
     const [Name,setName] = useState(updatetask.Name ? updatetask.Name : '')
     const [Description, setDescription] = useState(updatetask.Description ? updatetask.Description : '')
     const [Address,setAddress] = useState(updatetask.Address ? updatetask.Address : '')
@@ -20,7 +19,7 @@ const AddTask = observer(({show,onHide}) => {
     const click = async (updatetask) => {
         try {
             let data;
-            if (Object.keys(updatetask).length === 0) {
+            if (Object.keys(updatetask).length == 0) {
                 if (Name !== "" && Price !== "") {              
                     if (RoleTask !== undefined && CategoryTask !== undefined) {
                         if (Price >= StartPrice) {
@@ -28,7 +27,6 @@ const AddTask = observer(({show,onHide}) => {
                             alert("Не прикрепили ссылку на шаблон/пример выполнения задания")
                             return;
                         } else {
-                            console.log(Name,Address,Price,Description,CategoryTask,RoleTask,UserIdCreateTask)
                             data = createTask(Name,Address,Price,Description,CategoryTask,RoleTask,UserIdCreateTask) 
                             onHide()                       
                         }
@@ -52,7 +50,6 @@ const AddTask = observer(({show,onHide}) => {
                             alert("Не прикрепили ссылку на шаблон/пример выполнения задания")
                             return;
                         } else {
-                            console.log(updatetask.TaskId,Name,Address,Price,Description,CategoryTask,RoleTask)
                             data = updateTask(updatetask.TaskId,Name,Address,Price,Description,CategoryTask,RoleTask) 
                             onHide()                       
                         }
@@ -71,13 +68,13 @@ const AddTask = observer(({show,onHide}) => {
             }         
             
         } catch (error) {
-            console.log(error)
+            console.log(error.response.data.message)
         }
     }  
     return (
         <div>
             {
-                Object.keys(updatetask).length === 0 ?
+                Object.keys(updatetask).length == 0 ?
                 <div>
                    <Modal
         show={show}
@@ -117,7 +114,7 @@ const AddTask = observer(({show,onHide}) => {
                         {task.taskcategories.map(category =>
                             <ListGroup.Item
                                 style={{cursor: "pointer",borderColor:"orange"}}
-                                active={category.TaskCategoryId === task.selectedtaskcategories.TaskCategoryId}
+                                active={category.TaskCategoryId == task.selectedtaskcategories.TaskCategoryId}
                                 onClick={() => task.setSelectedTaskCategory(category)}
                                 key={category.TaskCategoryId}>
                                 {category.Name}
@@ -132,7 +129,7 @@ const AddTask = observer(({show,onHide}) => {
                         {task.taskroles.map(role =>
                             <ListGroup.Item
                                 style={{cursor: "pointer",borderColor:"orange"}}
-                                active={role.TaskRoleId === task.selectedtaskroles.TaskRoleId}
+                                active={role.TaskRoleId == task.selectedtaskroles.TaskRoleId}
                                 onClick={() => task.setSelectedTaskRole(role)}
                                 key={role.TaskRoleId}>
                                 {role.Name}
@@ -199,7 +196,7 @@ const AddTask = observer(({show,onHide}) => {
                         {task.taskcategories.map(category =>
                             <ListGroup.Item
                                 style={{cursor: "pointer",borderColor:"orange"}}
-                                active={category.TaskCategoryId === task.selectedtaskcategories.TaskCategoryId}
+                                active={category.TaskCategoryId == task.selectedtaskcategories.TaskCategoryId}
                                 onClick={() => task.setSelectedTaskCategory(category)}
                                 key={category.TaskCategoryId}>
                                 {category.Name}
@@ -214,7 +211,7 @@ const AddTask = observer(({show,onHide}) => {
                         {task.taskroles.map(role =>
                             <ListGroup.Item
                                 style={{cursor: "pointer",borderColor:"orange"}}
-                                active={role.TaskRoleId === task.selectedtaskroles.TaskRoleId}
+                                active={role.TaskRoleId == task.selectedtaskroles.TaskRoleId}
                                 onClick={() => task.setSelectedTaskRole(role)}
                                 key={role.TaskRoleId}>
                                 {role.Name}

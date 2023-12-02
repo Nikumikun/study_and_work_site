@@ -136,7 +136,7 @@ class UserController {
                     return next(ApiError.badRequest('Некорректный email или password'))
                 } else {
                     const candidate = await User.findAll({where: {Email}})
-                    if (candidate === null) {
+                    if (candidate == null) {
                         return next(ApiError.badRequest('Пользователь уже существует с таким email'))
                     } else {
                         const hashPassword = await bcrypt.hash(Password,5)
@@ -184,10 +184,9 @@ async userList(req,res,next){
             const user = await User.findAll({
                 where:{Email}
             })
-            console.log(user)
             if (!user) {
                 return c
-            } else if (user[0].dataValues.BlackList === true) {
+            } else if (user[0].dataValues.BlackList == true) {
                 return next(ApiError.internal("Вы в черном спииске!!"))
             }else
             {
@@ -226,7 +225,6 @@ async userList(req,res,next){
     async updateRole(req,res,next){
         try {
             const {Id,RoleId,CategoryId} = req.body
-            console.log(Id,RoleId,CategoryId)
             const updateRole = await User.update({
                 userroleUserRoleId: RoleId,
                 usercategoryUserCategoryId: CategoryId,
@@ -242,11 +240,10 @@ async userList(req,res,next){
     async BlackList(req,res,next){
         try {
             const Id = req.body.Id
-            console.log(Id)
             const user = await User.findOne({
                 where: {UserId: Id}
             })
-        if (user.BlackList === false) {
+        if (user.BlackList == false) {
             const userban = await User.update({
                 BlackList: true
             },

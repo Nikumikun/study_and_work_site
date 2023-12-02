@@ -10,7 +10,6 @@ class TaskController {
             })
             try {
             const {Name,Address,Price,Description,CategoryTask,RoleTask,UserIdCreateTask} = req.body
-            console.log(Name,Address,Price,Description,CategoryTask,RoleTask,UserIdCreateTask)
             const task = await Task.create({Name,Address,Price,Description,
                 taskstatusTaskStatusId:StatusCreated[0].dataValues.TaskStatusId,taskroleTaskRoleId:RoleTask,taskcategoryTaskCategoryId:CategoryTask,UserIdCreateTask:UserIdCreateTask})
             return res.json(task)
@@ -21,11 +20,9 @@ class TaskController {
     async addDecision(req,res, next){
         try {
             const {TaskId,Description,Address} = req.body
-            console.log(Description,Address)
             const checker = await TaskChecker.findOrCreate({
                 where: {Name: "На проверке"}
             })
-            console.log(checker)
             const decision = await Decision.create({Description,Address})
             const task = await Task.update(
                 {
@@ -81,7 +78,6 @@ class TaskController {
     async updateTask(req,res,next){
             try {
             const {TaskId,Name,Address,Price,Description,CategoryTask,RoleTask} = req.body
-            console.log(TaskId,Name,Address,Price,Description,CategoryTask,RoleTask)
             const task = await Task.update(
                 {Name,Address,Price,Description,taskroleTaskRoleId:RoleTask,taskcategoryTaskCategoryId:CategoryTask},
                 {

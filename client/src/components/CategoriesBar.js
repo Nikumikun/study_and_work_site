@@ -10,7 +10,7 @@ const CategoriesBar = observer(() => {
             {task.taskcategories.map(taskcategory =>
                 <ListGroup.Item
                     style={{cursor: "pointer",borderColor:"orange"}}
-                    active={taskcategory.TaskCategoryId === task.selectedtaskcategories.TaskCategoryId}
+                    active={taskcategory.TaskCategoryId == task.selectedtaskcategories.TaskCategoryId}
                     onClick={() => task.setSelectedTaskCategory(taskcategory)}
                     key={taskcategory.TaskCategoryId}>
                     {taskcategory.Name}

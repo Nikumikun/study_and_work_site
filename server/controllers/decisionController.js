@@ -6,7 +6,6 @@ class decisionController {
     async create(req,res, next){
         try {
             const {Description,Address} = req.body
-            console.log(Description,Address)
             const taskchecker = await TaskChecker.findOrCreate({
                 where: {Name: "На проверке"}
             })

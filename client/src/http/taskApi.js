@@ -6,20 +6,18 @@ export const createDecision = async (decision) => {
 }
 export const createTask = async (Name,Address,Price,Description,CategoryTask,RoleTask,UserIdCreateTask) => {
     try {
-        console.log(Name,Address,Price,Description,CategoryTask,RoleTask,UserIdCreateTask)
         const {data} = await $host.post('api/task/add', {Name,Address,Price,Description,CategoryTask,RoleTask,UserIdCreateTask})
         return data 
     } catch (error) {
-        console.log(error)
+        console.log(error.response.data.message)
     }
 }
 export const addDecision = async (TaskId,Description,Address) => {
     try {
-        console.log(Description,Address)
         const {data} = await $host.patch('api/task/addDecision',{TaskId,Description,Address})
         return data
     } catch (error) {
-        console.log(error)
+        console.log(error.response.data.message)
     }
 }
 export const updateTaskAndDecision = async (TaskId,UserId) => {
@@ -28,29 +26,26 @@ export const updateTaskAndDecision = async (TaskId,UserId) => {
         alert("Вы взяли задание")
         return data
     } catch (error) {
-        console.log(error)
+        console.log(error.response.data.message)
     }
 }
 export const updateTask = async (TaskId,Name,Address,Price,Description,CategoryTask,RoleTask) => {
     try {
-        console.log(TaskId,Name,Address,Price,Description,CategoryTask,RoleTask)
         const {data} = await $host.patch('api/task/updateTask', {TaskId,Name,Address,Price,Description,CategoryTask,RoleTask})
         return data 
     } catch (error) {
-        console.log(error)
+        console.log(error.response.data.message)
     }
 }
 export const addComment = async (TaskId,UserId,Comment) =>{
 try {
-    console.log(UserId,TaskId,Comment)
     const {data} = await $host.post('api/taskcomments/add', {TaskId,UserId,Comment})
     return data
 } catch (error) {
-    console.log(error)
+    console.log(error.response.data.message)
 }
 }
 export const fetchSelectedTaskComments = async (TaskId) => {
-        console.log(TaskId)
         const {data} = await $host.get('api/taskcomments/get', {params:{TaskId}})
         return data 
 }
@@ -60,8 +55,7 @@ export const createTaskCategory = async (Name,Description) => {
         const {data} = await $host.post('api/taskcategory/add', {Name,Description})
         return data  
     } catch (error) {
-        alert(error)
-        console.log(error)
+        console.log(error.response.data.message)
     }
 }
 export const createTaskRole = async (Name,Description) => {
@@ -71,7 +65,7 @@ export const createTaskRole = async (Name,Description) => {
         return data
     } catch (error) {
         alert(error)
-        console.log(error)
+        console.log(error.response.data.message)
     }
 }
 export const createTaskStatus = async (Name,Description) => {
@@ -81,7 +75,7 @@ export const createTaskStatus = async (Name,Description) => {
         return data 
     } catch (error) {
         alert(error)
-        console.log(error)
+        console.log(error.response.data.message)
     }
 }
 export const completeTask = async (Id) => {
