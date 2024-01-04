@@ -9,10 +9,10 @@ const Footer = () => {
             <Container>
                     Контакты:
                     <div>
-                        1-й руководитель: 
+                        1-й руководитель: victor.buchelnikov@yandex.ru 
                     </div>
                     <div>
-                        2-й руководитель: 
+                        2-й руководитель: Lovevca@mail.ru
                     </div>
                     <div>
                         Автор сайта: <a href="https://vk.com/nongari">https://vk.com/nongari</a>
