@@ -17,6 +17,17 @@ const Auth = observer(() => {
     const [Birthday,setBirthday] = useState('')
     const [UserName,setUserName] = useState('')
 
+    function ValidateEmail() {
+        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        console.log(Email)
+        if (Email.match(validRegex)) {
+          return true;
+        } else {
+          alert("Неправильный формат email, введите другой формат!");
+          return false;
+        }
+      }
+    
     const click = async () =>{
         try {
             let data;
@@ -30,12 +41,12 @@ const Auth = observer(() => {
                         } catch (error) {
                             alert("Проверьте введенные данные")
                         }
-                        
                     } else {
                         alert("Введите данные для входа")
                     }
                 } else {
-                    if (Password == AgainPassword){
+                    if (ValidateEmail()) {
+                        if (Password == AgainPassword){
                         try {
                             data = await registration(UserName,Birthday,Email,Password)
                         } catch (error) {
@@ -43,6 +54,7 @@ const Auth = observer(() => {
                         }
                     } else {
                         alert("Не совпадает пароль с подтверждением пароля")
+                    }
                     }
                 }
             } catch (error) {

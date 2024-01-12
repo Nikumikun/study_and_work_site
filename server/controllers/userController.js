@@ -2,7 +2,7 @@ const {User,Feedback, UserRole, TaskRole, TaskCategory, TaskStatus, UserCategory
 const ApiError = require('../error/ApiError')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const {DATEONLY, DataTypes, DATE, NOW} = require("sequelize");
+const {DATEONLY, DataTypes, DATE, NOW, or} = require("sequelize");
 const generateJwt = (UserId,UserName,Birthday,Email,feedbackFeedbackId,userroleUserRoleId,usercategoryUserCategoryId) => {
     return jwt.sign({UserId,UserName,Birthday,Email,feedbackFeedbackId,userroleUserRoleId,usercategoryUserCategoryId},
         process.env.SECRET_KEY, {expiresIn: '24h'})
@@ -124,8 +124,17 @@ const addAdmin = async() => {
 class UserController {
     
     async registration(req,res,next){
-        addData()
-        addAdmin()
+        const admin = await User.findOne({where: {Email:'lovevca@mail.ru'}})
+        const data = await TaskStatus.findOne({where: {Name: 'Выполнено'}})
+        console.log(admin)
+        console.log(data)
+        if (data == undefined || data == "") {
+            addData()
+        }
+        if (admin == undefined || admin == "") {
+            addAdmin()
+            
+        }
         try {
             const {UserName, Birthday, Email, Password} = req.body
             const dateNow = new Date(Date.now())
