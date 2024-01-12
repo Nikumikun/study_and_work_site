@@ -26,6 +26,10 @@ const Welcome = observer(() => {
             <Row>
                 Удачи! :)
             </Row>
+            <Row>
+            <img src="/dance-cat-aliicat.gif" alt="\(>^3^<)/" height="500" width="500"/>
+
+            </Row>
         </Container>
         <Footer/>
         </div>
