@@ -1,4 +1,4 @@
-#Разработка сайта на Javascript  123
+#Разработка сайта на Javascript  
   
 Требования для запуска сайта:  
     1. Docker + Docker compose  
