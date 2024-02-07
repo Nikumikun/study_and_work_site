@@ -42,7 +42,7 @@ return (
 
                 </div>
             }
-        <Button style={{color:"black"}} variant={"outline-warning"} onClick={() => click(Id)}>Обновить роль</Button>
+        <Button style={{color:"black"}} variant={"outline-warning"} onClick={() => click(Id)}>Проверить задание</Button>
         <Form.Control
             className="mt-3"
             placeholder="Введите Id"
@@ -51,7 +51,7 @@ return (
             onChange={e => setId(e.target.value)}>
         </Form.Control>
         <div className="mt-3">
-            Статус проверки (1 2 ...)
+            Статус проверки
         </div>
         <ListGroup horizontal>
             {task.taskchecker.map(check =>
@@ -65,14 +65,14 @@ return (
             )}
         </ListGroup>
         <div>
-            Id | Название | Цена | Проверка | Владелец | Автор | Статус выполнения | Категория | Предмет
+            Id | Название | Цена | Статус проверки | Владелец | Автор | Статус выполнения | Категория | Предмет
         </div>
         <ListGroup>
             {
                 task.looktasks.map(ts => 
-                    <ListGroup.Item key={ts.TaskId} ts={ts}>
-                        {ts.TaskId} | {ts.Name} | {ts.Price} | {ts.taskcheckerTaskCheckerId}
-                    </ListGroup.Item>)
+									<ListGroup.Item key={ts.TaskId} ts={ts}>
+									{ts.TaskId} | {ts.Name} | {ts.Price} | {ts.taskchecker != null? <nobr>{ts.taskchecker.Name}</nobr>: <nobr>Пусто</nobr>} | {ts.UserCreateTask != null? <nobr>{ts.UserCreateTask.UserName}</nobr>: <nobr>Пусто</nobr>} | {ts.UserTakeTask != null? <nobr>{ts.UserTakeTask.UserName}</nobr>: <nobr>Пусто</nobr>} | {ts.taskstatus.Name}| {ts.taskcategory.Name} | {ts.taskrole.Name}
+								</ListGroup.Item>)
             }
         </ListGroup>
     </Form>

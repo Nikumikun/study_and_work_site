@@ -149,7 +149,10 @@ class TaskController {
         return res.json(taskcheckers)
     }
 async AllTask(req,res){
-    const taskcheckers = await Task.findAll()
+    const taskcheckers = await Task.findAll(
+			{include:[ {model:TaskCategory}, {model:TaskRole}, {model:TaskStatus}, {model:TaskChecker}, {model:User,as:'UserCreateTask'},
+        {model: User,as: 'UserTakeTask'}]}
+		)
     return res.json(taskcheckers)
 }
     async history(req,res,next){
