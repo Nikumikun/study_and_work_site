@@ -8,6 +8,9 @@ const generateJwt = (UserId,UserName,Birthday,Email,feedbackFeedbackId,userroleU
         process.env.SECRET_KEY, {expiresIn: '24h'})
 }
 const addData = async() => {
+    const CategoryTaskLesson = await TaskCategory.findOrCreate({
+        where: {Name: "Лекция",StartPrice: 250.49}
+    })
     const CategoryTaskDoclad = await TaskCategory.findOrCreate({
         where: {Name: "Доклад",StartPrice: 149.99}
     })
@@ -27,7 +30,7 @@ const addData = async() => {
         where: {Name: "Презентация",StartPrice: 300.50}
     })
     const CategoryTaskOther = await TaskCategory.findOrCreate({
-        where: {Name: "Доработка",StartPrice: 300.00}
+        where: {Name: "Другое",StartPrice: 300.00}
     })
     const UserCategoryPhisic= await UserCategory.findOrCreate({
         where: {Name: "Физика"}
