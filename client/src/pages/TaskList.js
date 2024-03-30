@@ -32,6 +32,9 @@ const TaskList = observer(() => {
 <Container fluid="md">
             <Row className="mt-3">
                 <Col>
+                    <div style={{fontSize:"40px", textAlign:"center"}}>
+                        Список заданий
+                    </div>
                     { user.isAuth ? 
                     <div className="d-grid align-items-center">
                         <Button onClick={() => setCreateTaskVisible(true)} type="primary" variant="warning">Создать задание</Button>
