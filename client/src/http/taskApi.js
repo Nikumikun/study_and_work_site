@@ -50,28 +50,28 @@ export const fetchSelectedTaskComments = async (TaskId) => {
         return data 
 }
 
-export const createTaskCategory = async (Name,Description) => {
+export const createTaskCategory = async (Name) => {
     try {
-        const {data} = await $host.post('api/taskcategory/add', {Name,Description})
+        const {data} = await $host.post('api/taskcategory/add', {Name})
         return data  
     } catch (error) {
         console.log(error.response.data.message)
     }
 }
-export const createTaskRole = async (Name,Description) => {
+export const createTaskRole = async (Name) => {
     
     try {
-        const {data} = await $host.post('api/taskrole/add', {Name,Description})
+        const {data} = await $host.post('api/taskrole/add', {Name})
         return data
     } catch (error) {
         alert(error)
         console.log(error.response.data.message)
     }
 }
-export const createTaskStatus = async (Name,Description) => {
+export const createTaskStatus = async (Name) => {
    
     try {
-        const {data} = await $host.post('api/taskstatus/add', {Name,Description})
+        const {data} = await $host.post('api/taskstatus/add', {Name})
         return data 
     } catch (error) {
         alert(error)

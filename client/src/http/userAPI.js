@@ -6,6 +6,16 @@ export const registration = async (UserName,Birthday,Email,Password,userroleUser
     localStorage.setItem('token',data.token)
     return jwtDecode(data.token)
 }
+export const createUserCategory = async (Name) => {
+    
+    try {
+        const {data} = await $host.post('api/usercategory/add', {Name})
+        return data
+    } catch (error) {
+        alert(error)
+        console.log(error.response.data.message)
+    }
+}
 export const login = async (Email,Password) => {
     const {data} = await $host.post('api/user/login', {Email,Password})
     localStorage.setItem('token',data.token)

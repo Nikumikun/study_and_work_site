@@ -128,16 +128,26 @@ const TaskPage = observer(() => {
                             </div>
                             :
                             <div>
-                                <h3>Решение:</h3>
-                                <div>{task.decision.Description}</div>
-                                <a href={task.decision.Address}>{task.decision.Address}</a>
                             </div>
                             }
+                            
                         </div>
                         :
                         <div>
                         </div>
                         }
+                        <div>
+                        { task.decision == null ?
+                                <div>
+                            </div>
+                            :
+                            <div>
+                                <h3>Решение:</h3>
+                                <div>{task.decision.Description}</div>
+                                <a href={task.decision.Address}>{task.decision.Address}</a>
+                            </div>
+                            }        
+                        </div>
                     </div>
                     }
                     

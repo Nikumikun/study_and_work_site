@@ -3,8 +3,8 @@ const ApiError = require('../error/ApiError')
 class usercategoryController {
     async create(req,res, next){
         try {
-            const Name = req.body
-            const usercategory = await UserCategory.create({Name})
+            const {Name} = req.body
+            const usercategory = await UserCategory.create({Name:Name})
             return res.json(usercategory)
         } catch (e) {
             next(ApiError.badRequest(e.message))

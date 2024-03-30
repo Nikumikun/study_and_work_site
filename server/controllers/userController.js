@@ -129,14 +129,15 @@ class UserController {
     async registration(req,res,next){
         const admin = await User.findOne({where: {Email:'lovevca@mail.ru'}})
         const data = await TaskStatus.findOne({where: {Name: 'Выполнено'}})
+        const user = await User.findOne({where: {Email:'nikitacorowin2002@gmail.com'}})
         console.log(admin)
         console.log(data)
+        console.log(user)
         if (data == undefined || data == "") {
             addData()
         }
         if (admin == undefined || admin == "") {
             addAdmin()
-            
         }
         try {
             const {UserName, Birthday, Email, Password} = req.body
