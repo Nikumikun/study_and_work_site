@@ -43,9 +43,13 @@ class TaskController {
     async updateTaskAndDecision(req,res,next){
         try {
             const {TaskId,UserId} = req.body
+            const status = await TaskStatus.findOrCreate({
+                where: {Name: "Выполняется"}
+            })
             const task = await Task.update(
             {
                 UserIdTakeTask:UserId,
+                taskstatusTaskStatusId: status[0].dataValues.TaskStatusId,
             },
             {
                 where:{TaskId:TaskId}
@@ -62,9 +66,13 @@ class TaskController {
             const taskchekercomplete = await TaskChecker.findOrCreate({
                 where: {Name: "Проверено"}
             })
+            const status = await TaskStatus.findOrCreate({
+                where: {Name: "Выполнено"}
+            })
             const task = await Task.update(
             {
                 taskcheckerTaskCheckerId:taskchekercomplete[0].dataValues.TaskCheckerId,
+                taskstatusTaskStatusId: status[0].dataValues.TaskStatusId,
             },
             {
                 where:{TaskId:Id}

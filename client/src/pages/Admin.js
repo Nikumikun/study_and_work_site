@@ -24,17 +24,17 @@ const Admin = observer(() => {
     return (
         <Container className="d-flex flex-column mt-5">
             <Button className="mt-3" variant={"outline-warning"} style={{color:"black"}} onClick={() => setUserCategoryVisible(true)}>Добавить специализацию сотрудника</Button>
-            <Button className="mt-3" variant={"outline-warning"} style={{color:"black"}} onClick={() => setTaskRoleVisible(true)}>Добавить направление задания</Button>
+            <Button className="mt-3" variant={"outline-warning"} style={{color:"black"}} onClick={() => setTaskRoleVisible(true)}>Добавить предмет задания</Button>
             <Button className="mt-3" variant={"outline-warning"} style={{color:"black"}} onClick={() => setTaskStatusVisible(true)}>Добавить статус задания</Button>
-            <Button className="mt-3" variant={"outline-warning"} style={{color:"black"}} onClick={() => setTaskCategoryVisible(true)}>Добавить тип задания</Button>
+            <Button className="mt-3" variant={"outline-warning"} style={{color:"black"}} onClick={() => setTaskCategoryVisible(true)}>Добавить категорию задания</Button>
             <Button className="mt-3" variant={"outline-warning"} style={{color:"black"}} onClick={() => setLookUsersVisible(true)}>Просмотр и бан пользователей</Button>
             <Button className="mt-3" variant={"outline-warning"} style={{color:"black"}} onClick={() => setLookTasksVisible(true)}>Просмотр всех заданий</Button>
             <CreateTaskCategory show={TaskCategoryVisible} onHide={() => setTaskCategoryVisible(false)}/>
             <CreateTaskRole show={TaskRoleVisible} onHide={() => setTaskRoleVisible(false)}/>
             <CreateTaskStatus show={TaskStatusVisible} onHide={() => setTaskStatusVisible(false)}/>
             <CreateUserCategory show={UserCategoryVisible} onHide={() => setUserCategoryVisible(false)}/>
-            <LookUsers show={LookUsersVisible} onHide={() => setLookUsersVisible(false)}></LookUsers>
-            <LookTasks show={LookTasksVisible} onHide={() => setLookTasksVisible(false)}></LookTasks>
+            <LookUsers show={LookUsersVisible} onHide={() => setLookUsersVisible(false)}/>
+            <LookTasks show={LookTasksVisible} onHide={() => setLookTasksVisible(false)}/>
         </Container>
     );
 });

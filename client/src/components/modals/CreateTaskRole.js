@@ -26,7 +26,7 @@ const CreateTaskRole = ({show,onHide}) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Добавить направление задания
+                    Добавить предмет задания
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>

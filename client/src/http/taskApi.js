@@ -50,9 +50,9 @@ export const fetchSelectedTaskComments = async (TaskId) => {
         return data 
 }
 
-export const createTaskCategory = async (Name) => {
+export const createTaskCategory = async (Name,StartPrice) => {
     try {
-        const {data} = await $host.post('api/taskcategory/add', {Name})
+        const {data} = await $host.post('api/taskcategory/add', {Name,StartPrice})
         return data  
     } catch (error) {
         console.log(error.response.data.message)

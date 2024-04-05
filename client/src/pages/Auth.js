@@ -19,7 +19,6 @@ const Auth = observer(() => {
 
     function ValidateEmail() {
         var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        console.log(Email)
         if (Email.match(validRegex)) {
           return true;
         } else {
@@ -47,11 +46,18 @@ const Auth = observer(() => {
                 } else {
                     if (ValidateEmail()) {
                         if (Password == AgainPassword){
-                        try {
+                            const dateIf = new Date(1950,1,1)
+                            const birthdayIf = new Date(Date.parse(Birthday))
+                            if (dateIf>birthdayIf) {
+                                alert("Введите другую дату. Вы можете ввести любую дату после 01.01.1950 и не больше нынешней.")
+                            } else {
+                                try {
                             data = await registration(UserName,Birthday,Email,Password)
-                        } catch (error) {
-                            alert(error)
-                        }
+                            } catch (error) {
+                                alert(error)
+                            }
+                            }
+                        
                     } else {
                         alert("Не совпадает пароль с подтверждением пароля")
                     }

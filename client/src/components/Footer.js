@@ -9,10 +9,10 @@ const Footer = () => {
             <Container>
                     Контакты:
                     <div>
-                        1-й руководитель: Lovevca@mail.ru
+                        Главный администратор: Lovevca@mail.ru
                     </div>
                     <div>
-                        2-й руководитель: victor.buchelnikov@yandex.ru 
+                        Заместитель главного администратора: victor.buchelnikov@yandex.ru 
                     </div>
                     
                     <div>

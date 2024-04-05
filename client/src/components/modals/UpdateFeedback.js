@@ -45,8 +45,8 @@ const UpdateFeedback = observer(({show,onHide}) => {
                     <div >WhatsApp:</div>
                     <Form.Control className="m-2" placeholder="Введите номер телефона аккаунта" value={WhatsApp} type="text"
                     onChange={e => setWhatsApp(e.target.value)}/>
-                    <div >Viber:</div>
-                    <Form.Control className="m-2" placeholder="Введите номер телефона аккаунта" value={Discord} type="text"
+                    <div >Discord:</div>
+                    <Form.Control className="m-2" placeholder="Введите айди (имя профиля)" value={Discord} type="text"
                     onChange={e => setDiscord(e.target.value)}/>
                     <div  >OK:</div>
                     <Form.Control className="m-2" placeholder="Введите ссылку на профиль" value={OK} type="text"

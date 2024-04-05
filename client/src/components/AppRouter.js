@@ -6,9 +6,6 @@ const AppRouter = () => {
     const {user} = useContext(Context)
     return (
         <Routes>
-            {user.isAuth && authRoutes.map(({path, Component}) => (
-                <Route key={path} path={path} element={Component} exact />
-            ))}
             {user.users.userroleUserRoleId == 1 && 
             AdminRoutes.map(({ path, Component }) => (
             <Route key={path} path={path} element={Component} exact />

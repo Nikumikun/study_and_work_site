@@ -44,7 +44,7 @@ const CreateTaskCategory = ({show, onHide}) => {
                     />
                     <Form.Control
                         className="m-2"
-                        placeholder={"Описание категории"} 
+                        placeholder={"Цена категории"} 
                         value={StartPrice} 
                         onChange={e =>setStartPrice(e.target.value)}
                         type="real"

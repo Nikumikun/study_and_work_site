@@ -2,12 +2,10 @@ import React from "react";
 import Admin from "./pages/Admin";
 import UserProfile from "./pages/UserProfile";
 import TaskPage from "./pages/TaskPage";
-import Decision from "./pages/Decision";
 import Auth from "./pages/Auth";
 import TaskList from "./pages/TaskList";
 import {
     ADMIN_ROUTE,
-    DECISION_ROUTE,
     LOGIN_ROUTE,
     REGISTRATION_ROUTE,
     TASKLIST_ROUTE,
@@ -16,12 +14,6 @@ import {
     WELCOME_ROUTE
 } from "./utils/consts";
 import Welcome from "./pages/Welcome";
-export const authRoutes = [
-    {
-        path: DECISION_ROUTE + '/:DecisionId',
-        Component: <Decision />
-    },
-]
 export const AdminRoutes = [
     {
       path: ADMIN_ROUTE,
