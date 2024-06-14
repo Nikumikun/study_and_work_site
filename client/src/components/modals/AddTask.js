@@ -150,8 +150,8 @@ const AddTask = observer(({show,onHide}) => {
                         onChange={e => setPrice(e.target.value)}>
                     </Form.Control>
                     <div className="mt-3">
-                        Не забудьте отправить указанную сумму для заказа по данному QR-коду. 
-                        <img src="/konosuba-kazuma.gif" height="500" width="500"/>
+                        Не забудьте отправить выбранную сумму для заказа по данным реквизитам. <br/>
+                        Реквизиты: 40817810364008678050
                     </div>
                     
                 </Container>
