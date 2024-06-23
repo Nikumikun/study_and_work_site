@@ -45,10 +45,8 @@ const TaskList = observer(() => {
                     }
                     <TasksList/>
                     <PageCounter />
-                </Col>
-                 
+                </Col>  
             </Row>
-            
         </Container>
         <Footer/>
         </div>
